@@ -52,6 +52,13 @@ struct VerbaTests {
     }
 
     @MainActor
+    @Test func defaultRegistryRegistersOnlyTrainingSkill() throws {
+        let registry = try DefaultSkillRegistry.make()
+
+        #expect(registry.allSkills.map(\.id) == ["uc-communication-training"])
+    }
+
+    @MainActor
     @Test func skillRegistryRejectsDuplicateIDs() throws {
         let registry = SkillRegistry()
         try registry.register(TestSkill(id: "training"))
@@ -81,6 +88,31 @@ struct VerbaTests {
         let decoded = try JSONDecoder().decode(RealtimeToolDefinition.self, from: data)
 
         #expect(decoded == tool)
+    }
+
+    @MainActor
+    @Test func trainingSkillExposesRequiredTools() {
+        let skill = UCCommunicationTrainingSkill()
+        let toolNames = skill.tools.map(\.name)
+
+        #expect(toolNames == [
+            "record_session",
+            "start_round",
+            "flag_jargon_interruption",
+            "recall_phrase_result",
+            "get_recent_scores"
+        ])
+        #expect(Set(skill.makeToolHandlers().keys) == Set(toolNames))
+    }
+
+    @MainActor
+    @Test func trainingSkillPromptIncludesAllExercisesAndGuardrail() {
+        let prompt = UCCommunicationTrainingSkill().systemPromptFragment
+
+        #expect(TrainingExercises.all.count == 10)
+        #expect(prompt.contains("Do not flatter. If a score above 4 cannot be justified by a specific quote from the user's speech in this round, lower it. Real customers won't be polite."))
+        #expect(prompt.contains("Exercise 1: Translation Drill (Technical → Sales → Executive)"))
+        #expect(prompt.contains("Exercise 10: Trigger Phrase Sales Coaching"))
     }
 
     @Test func trainingScoringEngineTotalsFourDimensions() throws {
