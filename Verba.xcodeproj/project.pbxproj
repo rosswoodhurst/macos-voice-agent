@@ -27,6 +27,7 @@
 		DFAC3143F0C833AFCF4119BD /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E36C8F618E1EC1B504F824 /* Badge.swift */; };
 		F2289C5CBC0558EB837A1D12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */; };
 		F237BA9C15E74C6FA8F3BAC5 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B4E945161F444E90F7F83 /* AppState.swift */; };
+		F520A471F85C150D5429E18E /* TrainingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EEE2ED5B8A5D0C62BE50AC /* TrainingStore.swift */; };
 		F8863B941BBF599F97A60DC8 /* KeychainAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EF384C25FE12D67E4A3410 /* KeychainAuthProvider.swift */; };
 		FD6E7372D532BA0EAFC3462F /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15108CBAB58BA58B688F88 /* Color+Hex.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18EEE2ED5B8A5D0C62BE50AC /* TrainingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStore.swift; sourceTree = "<group>"; };
 		267B727E846F9E18D4D48355 /* VerbaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbaApp.swift; sourceTree = "<group>"; };
 		27E7006FDB0549D41D5DD8D6 /* VerbaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerbaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BBA320DC063C9286449F36A /* RealtimeTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTransport.swift; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		210F3D39D31C619212B03083 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				18EEE2ED5B8A5D0C62BE50AC /* TrainingStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		27F73CD10D7AFE4A33137DC1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				27F73CD10D7AFE4A33137DC1 /* Models */,
+				210F3D39D31C619212B03083 /* Persistence */,
 				F7C22B49D612F27C46A772E2 /* Scoring */,
 			);
 			path = Training;
@@ -316,6 +327,7 @@
 				298938E82F311AD9A8F87212 /* TrainingScoreDimensions.swift in Sources */,
 				557F91F76CFC5B84CA3307AC /* TrainingScoringEngine.swift in Sources */,
 				92672346C97071FEA4600C2D /* TrainingSession.swift in Sources */,
+				F520A471F85C150D5429E18E /* TrainingStore.swift in Sources */,
 				8BECC657E77F0F0B2911756A /* Transcript.swift in Sources */,
 				C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */,
 				D6A77685E8872555BC94B384 /* WebSocketRealtimeTransport.swift in Sources */,

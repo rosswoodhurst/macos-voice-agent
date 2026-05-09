@@ -1,4 +1,5 @@
 import Foundation
+import SwiftData
 import Testing
 @testable import Verba
 
@@ -112,6 +113,52 @@ struct VerbaTests {
         } catch {
             Issue.record("Unexpected error: \(error)")
         }
+    }
+
+    @MainActor
+    @Test func trainingStoreReturnsMostRecentSessionsFirst() throws {
+        let container = try ModelContainer(
+            for: TrainingSession.self,
+            Transcript.self,
+            Badge.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let store = TrainingStore(modelContext: container.mainContext)
+
+        try store.insertSession(
+            TrainingSession(
+                exerciseId: "exercise-1",
+                startedAt: Date(timeIntervalSince1970: 1),
+                dimensions: TrainingScoreDimensions(
+                    clarity: 3,
+                    jargon: 3,
+                    outcome: 3,
+                    delivery: 3
+                ),
+                strongestQuote: "",
+                weakestQuote: "",
+                fix: ""
+            )
+        )
+        try store.insertSession(
+            TrainingSession(
+                exerciseId: "exercise-2",
+                startedAt: Date(timeIntervalSince1970: 2),
+                dimensions: TrainingScoreDimensions(
+                    clarity: 4,
+                    jargon: 4,
+                    outcome: 4,
+                    delivery: 4
+                ),
+                strongestQuote: "",
+                weakestQuote: "",
+                fix: ""
+            )
+        )
+
+        let recent = try store.recentSessions(limit: 10)
+
+        #expect(recent.map(\.exerciseId) == ["exercise-2", "exercise-1"])
     }
 }
 
