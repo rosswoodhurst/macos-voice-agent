@@ -17,6 +17,7 @@
 		557F91F76CFC5B84CA3307AC /* TrainingScoringEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDF1B992A87F6B00C498DCA /* TrainingScoringEngine.swift */; };
 		5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADB26532A940799B2ED83A /* AppConfig.swift */; };
 		5F9190EDCD3AF640274707A1 /* UCCommunicationTrainingSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46114A78A1A05EB2ECFCFB83 /* UCCommunicationTrainingSkill.swift */; };
+		6C072C4189FA2EE9AC730BB2 /* AudioAmplitudeMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */; };
 		6E9FA0BE8D7BCDEFE97E5C2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */; };
 		7B838F2AE2EE567AB781D7F2 /* VerbaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */; };
 		84EBCB30B3882C77BAEC13D3 /* RealtimeSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80CFDF07CE4B4C18D5CA496 /* RealtimeSessionConfiguration.swift */; };
@@ -62,6 +63,7 @@
 		6802509DE06810EF66E6B26A /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6D09F0315FBB1DC3308BE067 /* RealtimeToolDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeToolDefinition.swift; sourceTree = "<group>"; };
+		76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAmplitudeMeter.swift; sourceTree = "<group>"; };
 		7F15108CBAB58BA58B688F88 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		A3E36C8F618E1EC1B504F824 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */,
 				FE958738EE3FBBEA3F049C54 /* App */,
+				88EDE4A3A669BDF1EF9271FA /* Audio */,
 				D4AB40E78371CE7F672FED46 /* Auth */,
 				9C74C1C500C725051106CCC1 /* Realtime */,
 				E3B55E60537F2121367F2B44 /* Skills */,
@@ -168,6 +171,14 @@
 				46114A78A1A05EB2ECFCFB83 /* UCCommunicationTrainingSkill.swift */,
 			);
 			path = UCCommunicationTraining;
+			sourceTree = "<group>";
+		};
+		88EDE4A3A669BDF1EF9271FA /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		9B7614D98EB5A4488712EF40 /* UI */ = {
@@ -368,6 +379,7 @@
 			files = (
 				5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */,
 				F237BA9C15E74C6FA8F3BAC5 /* AppState.swift in Sources */,
+				6C072C4189FA2EE9AC730BB2 /* AudioAmplitudeMeter.swift in Sources */,
 				10906C34E7DB00B4140A8614 /* AuthProvider.swift in Sources */,
 				DFAC3143F0C833AFCF4119BD /* Badge.swift in Sources */,
 				FD6E7372D532BA0EAFC3462F /* Color+Hex.swift in Sources */,

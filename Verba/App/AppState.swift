@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 @MainActor
 final class AppState: ObservableObject {
@@ -11,6 +12,7 @@ final class AppState: ObservableObject {
     @Published var outputLevel = 0.0
 
     private let authProvider: AuthProvider
+    private let amplitudeMeter = AudioAmplitudeMeter()
 
     init(authProvider: AuthProvider = KeychainAuthProvider()) {
         self.authProvider = authProvider
@@ -55,6 +57,16 @@ final class AppState: ObservableObject {
             voicePhase = .idle
             outputLevel = 0
         }
+    }
+
+    func updateOutputLevel(from buffer: AVAudioPCMBuffer) {
+        outputLevel = amplitudeMeter.normalizedRMSLevel(from: buffer)
+        voicePhase = .speaking
+    }
+
+    func updateOutputLevel(fromPCM16 data: Data) {
+        outputLevel = amplitudeMeter.normalizedRMSLevel(fromPCM16: data)
+        voicePhase = .speaking
     }
 
     private func refreshAPIKeyStatus() {

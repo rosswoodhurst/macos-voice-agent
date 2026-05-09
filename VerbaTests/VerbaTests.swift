@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 import SwiftData
 import Testing
 @testable import Verba
@@ -258,6 +259,38 @@ struct VerbaTests {
 
         #expect(summary.latestTen.map(\.exerciseId) == ["exercise-1", "exercise-2"])
         #expect(summary.streakDaysThisWeek == 2)
+    }
+
+    @Test func audioAmplitudeMeterReadsPCM16Level() {
+        var samples: [Int16] = [0, Int16.max, 0, -Int16.max]
+        let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
+
+        let level = AudioAmplitudeMeter().normalizedRMSLevel(fromPCM16: data)
+
+        #expect(level > 0.70)
+        #expect(level < 0.72)
+    }
+
+    @Test func audioAmplitudeMeterReadsFloatBufferLevel() throws {
+        let format = AVAudioFormat(
+            commonFormat: .pcmFormatFloat32,
+            sampleRate: 24_000,
+            channels: 1,
+            interleaved: false
+        )
+        let unwrappedFormat = try #require(format)
+        let buffer = try #require(AVAudioPCMBuffer(pcmFormat: unwrappedFormat, frameCapacity: 4))
+        buffer.frameLength = 4
+        let samples = try #require(buffer.floatChannelData?[0])
+        samples[0] = 0
+        samples[1] = 1
+        samples[2] = 0
+        samples[3] = -1
+
+        let level = AudioAmplitudeMeter().normalizedRMSLevel(from: buffer)
+
+        #expect(level > 0.70)
+        #expect(level < 0.72)
     }
 
     @MainActor

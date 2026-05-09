@@ -71,7 +71,8 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Unit-test skill registry.
 - [x] Unit-test pure-data transforms.
 - [x] Build the voice orb states.
-- [ ] Sync speaking animation to output audio amplitude.
+- [x] Sync speaking animation to output audio amplitude.
+- [ ] Wire Realtime model audio playback into the output amplitude meter.
 - [x] Build the Progress dashboard.
 - [x] Implement badge awards.
 - [x] Add app icon set.
