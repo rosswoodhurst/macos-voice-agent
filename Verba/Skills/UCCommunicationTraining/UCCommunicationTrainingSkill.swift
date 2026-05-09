@@ -3,6 +3,11 @@ import Foundation
 struct UCCommunicationTrainingSkill: Skill {
     let id = "uc-communication-training"
     let displayName = "UC Communication Training"
+    private let runtime: TrainingToolRuntime
+
+    init(runtime: TrainingToolRuntime = TrainingToolRuntime()) {
+        self.runtime = runtime
+    }
 
     var systemPromptFragment: String {
         """
@@ -36,12 +41,23 @@ struct UCCommunicationTrainingSkill: Skill {
     }
 
     func makeToolHandlers() -> [String: SkillToolHandler] {
-        Dictionary(uniqueKeysWithValues: tools.map { tool in
-            let handler: SkillToolHandler = { invocation in
-                SkillToolResult(json: #"{"status":"accepted","tool":"\#(invocation.name)"}"#)
+        [
+            "record_session": { invocation in
+                try await runtime.recordSession(argumentsJSON: invocation.argumentsJSON)
+            },
+            "start_round": { invocation in
+                try await runtime.startRound(argumentsJSON: invocation.argumentsJSON)
+            },
+            "flag_jargon_interruption": { invocation in
+                try await runtime.flagJargonInterruption(argumentsJSON: invocation.argumentsJSON)
+            },
+            "recall_phrase_result": { invocation in
+                try await runtime.recallPhraseResult(argumentsJSON: invocation.argumentsJSON)
+            },
+            "get_recent_scores": { invocation in
+                try await runtime.getRecentScores(argumentsJSON: invocation.argumentsJSON)
             }
-            return (tool.name, handler)
-        })
+        ]
     }
 
     private static func promptDescription(_ exercise: TrainingExercise) -> String {
@@ -109,6 +125,7 @@ private extension UCCommunicationTrainingSkill {
         description: "Record a forbidden jargon interruption during jargon-sensitive exercises.",
         parameters: .object(
             properties: [
+                "exerciseId": .string(),
                 "word": .string()
             ],
             required: ["word"]

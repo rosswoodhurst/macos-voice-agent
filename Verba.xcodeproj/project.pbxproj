@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		056A8D2CF28F73CD3C4FE93D /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF07B48337706D9ED2511FAA /* Exercises.swift */; };
 		10906C34E7DB00B4140A8614 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */; };
+		25D6B8B2B1F9DFEA4A81803F /* TrainingToolRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD95AECC2F76E52C04E229 /* TrainingToolRuntime.swift */; };
 		298938E82F311AD9A8F87212 /* TrainingScoreDimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923E41659F3856062AC775 /* TrainingScoreDimensions.swift */; };
 		2FD9858B1DF650EF6B739579 /* RealtimeInstructionComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C952DDB803AFFA3D98BD7 /* RealtimeInstructionComposer.swift */; };
 		44BE1ED1CF802ACBBC186785 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6802509DE06810EF66E6B26A /* Skill.swift */; };
@@ -71,6 +72,7 @@
 		D4EF384C25FE12D67E4A3410 /* KeychainAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAuthProvider.swift; sourceTree = "<group>"; };
 		D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketRealtimeTransport.swift; sourceTree = "<group>"; };
 		DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRegistry.swift; sourceTree = "<group>"; };
+		E2AD95AECC2F76E52C04E229 /* TrainingToolRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingToolRuntime.swift; sourceTree = "<group>"; };
 		E54B4E945161F444E90F7F83 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		ED7C0237B2D4A567ECEE57D8 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		F6ADB26532A940799B2ED83A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		81C7079AD5F710E8748930DC /* UCCommunicationTraining */ = {
 			isa = PBXGroup;
 			children = (
+				E2AD95AECC2F76E52C04E229 /* TrainingToolRuntime.swift */,
 				46114A78A1A05EB2ECFCFB83 /* UCCommunicationTrainingSkill.swift */,
 			);
 			path = UCCommunicationTraining;
@@ -355,6 +358,7 @@
 				557F91F76CFC5B84CA3307AC /* TrainingScoringEngine.swift in Sources */,
 				92672346C97071FEA4600C2D /* TrainingSession.swift in Sources */,
 				F520A471F85C150D5429E18E /* TrainingStore.swift in Sources */,
+				25D6B8B2B1F9DFEA4A81803F /* TrainingToolRuntime.swift in Sources */,
 				8BECC657E77F0F0B2911756A /* Transcript.swift in Sources */,
 				5F9190EDCD3AF640274707A1 /* UCCommunicationTrainingSkill.swift in Sources */,
 				C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */,

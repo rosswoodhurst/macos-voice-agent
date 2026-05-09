@@ -65,8 +65,8 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Implement `Skill` protocol and `SkillRegistry`.
 - [x] Register exactly one v1 skill: `UCCommunicationTrainingSkill`.
 - [x] Embed all 10 exercise prompt blocks verbatim.
-- [ ] Implement required training Realtime tools.
-- [ ] Persist training sessions, transcripts, and badges with SwiftData.
+- [x] Implement required training Realtime tools.
+- [x] Persist training sessions, transcripts, and badges with SwiftData.
 - [ ] Unit-test scoring engine.
 - [ ] Unit-test skill registry.
 - [ ] Unit-test pure-data transforms.

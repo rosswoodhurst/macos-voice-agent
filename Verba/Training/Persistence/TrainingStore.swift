@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @MainActor
-final class TrainingStore {
+final class TrainingStore: @unchecked Sendable {
     private let modelContext: ModelContext
 
     init(modelContext: ModelContext) {

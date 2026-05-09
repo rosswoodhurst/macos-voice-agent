@@ -115,6 +115,57 @@ struct VerbaTests {
         #expect(prompt.contains("Exercise 10: Trigger Phrase Sales Coaching"))
     }
 
+    @MainActor
+    @Test func trainingRecordSessionToolPersistsThroughStore() async throws {
+        let container = try ModelContainer(
+            for: TrainingSession.self,
+            Transcript.self,
+            Badge.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let store = TrainingStore(modelContext: container.mainContext)
+        let runtime = TrainingToolRuntime(trainingStore: store)
+        let skill = UCCommunicationTrainingSkill(runtime: runtime)
+        let handlers = skill.makeToolHandlers()
+
+        _ = try await handlers["start_round"]?(
+            SkillToolInvocation(
+                name: "start_round",
+                argumentsJSON: #"{"exerciseId":"exercise-1"}"#
+            )
+        )
+
+        let result = try await handlers["record_session"]?(
+            SkillToolInvocation(
+                name: "record_session",
+                argumentsJSON: """
+                {
+                  "exerciseId": "exercise-1",
+                  "dimensions": {
+                    "clarity": 4,
+                    "jargon": 4,
+                    "outcome": 4,
+                    "delivery": 4
+                  },
+                  "total": 16,
+                  "strongestQuote": "clear",
+                  "weakestQuote": "weak",
+                  "fix": "shorten it",
+                  "durationSec": 60,
+                  "transcriptId": "\(UUID().uuidString)"
+                }
+                """
+            )
+        )
+
+        let recent = try store.recentSessions(limit: 10)
+
+        #expect(result?.json.contains(#""persisted":true"#) == true)
+        #expect(recent.count == 1)
+        #expect(recent.first?.exerciseId == "exercise-1")
+        #expect(recent.first?.total == 16)
+    }
+
     @Test func trainingScoringEngineTotalsFourDimensions() throws {
         let dimensions = TrainingScoreDimensions(
             clarity: 4,
