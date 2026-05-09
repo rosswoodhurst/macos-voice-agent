@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADB26532A940799B2ED83A /* AppConfig.swift */; };
+		6E9FA0BE8D7BCDEFE97E5C2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */; };
+		7B838F2AE2EE567AB781D7F2 /* VerbaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */; };
+		C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B727E846F9E18D4D48355 /* VerbaApp.swift */; };
+		F2289C5CBC0558EB837A1D12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */; };
+		FD6E7372D532BA0EAFC3462F /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15108CBAB58BA58B688F88 /* Color+Hex.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AF14374CF196D2316F509D2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88584B3B948A6D1AE1FD4F35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FAAC6D259BF354734E1BEAA5;
+			remoteInfo = Verba;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		267B727E846F9E18D4D48355 /* VerbaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbaApp.swift; sourceTree = "<group>"; };
+		27E7006FDB0549D41D5DD8D6 /* VerbaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerbaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49749C822A362CB42CE64588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbaTests.swift; sourceTree = "<group>"; };
+		6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F15108CBAB58BA58B688F88 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		CDD82377C411A472ED123E99 /* Verba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verba.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE4DE455BB2F598E552A47F0 /* Verba.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Verba.entitlements; sourceTree = "<group>"; };
+		F6ADB26532A940799B2ED83A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5291077C07CE343EE80F7FC5 = {
+			isa = PBXGroup;
+			children = (
+				80BEB7FC54ED670E7B5AF6E5 /* Verba */,
+				7EB6118E1585931019B4F808 /* VerbaTests */,
+				AEB52BEBF0E6B31AA950D7AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7EB6118E1585931019B4F808 /* VerbaTests */ = {
+			isa = PBXGroup;
+			children = (
+				51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */,
+			);
+			path = VerbaTests;
+			sourceTree = "<group>";
+		};
+		80BEB7FC54ED670E7B5AF6E5 /* Verba */ = {
+			isa = PBXGroup;
+			children = (
+				FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */,
+				FE958738EE3FBBEA3F049C54 /* App */,
+				D4EC7CA1CB44651D7F308DD5 /* Support */,
+				9B7614D98EB5A4488712EF40 /* UI */,
+			);
+			path = Verba;
+			sourceTree = "<group>";
+		};
+		9B7614D98EB5A4488712EF40 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AEB52BEBF0E6B31AA950D7AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CDD82377C411A472ED123E99 /* Verba.app */,
+				27E7006FDB0549D41D5DD8D6 /* VerbaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4EC7CA1CB44651D7F308DD5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				7F15108CBAB58BA58B688F88 /* Color+Hex.swift */,
+				49749C822A362CB42CE64588 /* Info.plist */,
+				CE4DE455BB2F598E552A47F0 /* Verba.entitlements */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		FE958738EE3FBBEA3F049C54 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADB26532A940799B2ED83A /* AppConfig.swift */,
+				267B727E846F9E18D4D48355 /* VerbaApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		618480F0EF46D69F32126446 /* VerbaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3929F43DB4AAA7DFDC4C3FF5 /* Build configuration list for PBXNativeTarget "VerbaTests" */;
+			buildPhases = (
+				42837B6234A01FA8CE0B7EF5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FE5815BD7EB899DBD4F99D51 /* PBXTargetDependency */,
+			);
+			name = VerbaTests;
+			packageProductDependencies = (
+			);
+			productName = VerbaTests;
+			productReference = 27E7006FDB0549D41D5DD8D6 /* VerbaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FAAC6D259BF354734E1BEAA5 /* Verba */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1D29C4EBA6F2058EE9D2981 /* Build configuration list for PBXNativeTarget "Verba" */;
+			buildPhases = (
+				81AF4FC55E99C0C9BAA74960 /* Sources */,
+				DABD6AE848F6A902C81510BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Verba;
+			packageProductDependencies = (
+			);
+			productName = Verba;
+			productReference = CDD82377C411A472ED123E99 /* Verba.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88584B3B948A6D1AE1FD4F35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					618480F0EF46D69F32126446 = {
+						ProvisioningStyle = Manual;
+					};
+					FAAC6D259BF354734E1BEAA5 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = CB8B248A4B1220191D80A4EC /* Build configuration list for PBXProject "Verba" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5291077C07CE343EE80F7FC5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAAC6D259BF354734E1BEAA5 /* Verba */,
+				618480F0EF46D69F32126446 /* VerbaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DABD6AE848F6A902C81510BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E9FA0BE8D7BCDEFE97E5C2C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42837B6234A01FA8CE0B7EF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B838F2AE2EE567AB781D7F2 /* VerbaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81AF4FC55E99C0C9BAA74960 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */,
+				FD6E7372D532BA0EAFC3462F /* Color+Hex.swift in Sources */,
+				F2289C5CBC0558EB837A1D12 /* ContentView.swift in Sources */,
+				C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FE5815BD7EB899DBD4F99D51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FAAC6D259BF354734E1BEAA5 /* Verba */;
+			targetProxy = AF14374CF196D2316F509D2E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1041EE2E68AE1084F3C641FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Verba/Support/Verba.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Verba/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba;
+				PRODUCT_NAME = Verba;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		14BAA9CB152B2A099C45F6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Verba.app/Contents/MacOS/Verba";
+			};
+			name = Debug;
+		};
+		170D2BEA7F483E4193F566C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Verba/Support/Verba.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Verba/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba;
+				PRODUCT_NAME = Verba;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2B466C054F4C6A6858CFFD58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		8D6D463BC66714337F63D0AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		E5D3A973DEB7F6AE705EBBBB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Verba.app/Contents/MacOS/Verba";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3929F43DB4AAA7DFDC4C3FF5 /* Build configuration list for PBXNativeTarget "VerbaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14BAA9CB152B2A099C45F6F3 /* Debug */,
+				E5D3A973DEB7F6AE705EBBBB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C1D29C4EBA6F2058EE9D2981 /* Build configuration list for PBXNativeTarget "Verba" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				170D2BEA7F483E4193F566C9 /* Debug */,
+				1041EE2E68AE1084F3C641FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CB8B248A4B1220191D80A4EC /* Build configuration list for PBXProject "Verba" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D6D463BC66714337F63D0AD /* Debug */,
+				2B466C054F4C6A6858CFFD58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 88584B3B948A6D1AE1FD4F35 /* Project object */;
+}
