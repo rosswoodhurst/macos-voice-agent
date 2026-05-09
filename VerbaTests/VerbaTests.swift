@@ -80,6 +80,38 @@ struct VerbaTests {
 
         #expect(decoded == tool)
     }
+
+    @Test func trainingScoringEngineTotalsFourDimensions() throws {
+        let dimensions = TrainingScoreDimensions(
+            clarity: 4,
+            jargon: 3,
+            outcome: 5,
+            delivery: 4
+        )
+
+        let total = try TrainingScoringEngine().normalizedTotal(for: dimensions)
+
+        #expect(total == 16)
+    }
+
+    @Test func trainingScoringEngineRejectsOutOfRangeScores() {
+        let dimensions = TrainingScoreDimensions(
+            clarity: 0,
+            jargon: 3,
+            outcome: 5,
+            delivery: 4
+        )
+
+        do {
+            _ = try TrainingScoringEngine().normalizedTotal(for: dimensions)
+            Issue.record("Expected out-of-range score to throw.")
+        } catch TrainingScoringError.dimensionOutOfRange(let dimension, let score) {
+            #expect(dimension == .clarity)
+            #expect(score == 0)
+        } catch {
+            Issue.record("Unexpected error: \(error)")
+        }
+    }
 }
 
 private struct TestSkill: Skill {
