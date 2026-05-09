@@ -74,6 +74,6 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [ ] Sync speaking animation to output audio amplitude.
 - [x] Build the Progress dashboard.
 - [x] Implement badge awards.
-- [ ] Add app icon set.
+- [x] Add app icon set.
 - [ ] Add README screenshot.
 - [ ] Verify v1 definition of done.
