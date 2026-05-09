@@ -10,24 +10,34 @@ I will stop after writing this file and wait for answers before creating the fir
    - I detect `origin` as `https://github.com/rosswoodhurst/macos-voice-agent.git`.
    - Should I use this as the private repo and push the initial scaffold to `main` there?
 
+   A. Yes.
+
 2. Confirm the bundle identifier prefix.
    - Proposed bundle id: `com.rosswoodhurst.verba`.
    - Proposed Keychain service: `com.rosswoodhurst.verba.openai`.
    - If you prefer a different author/company prefix, provide it before I scaffold the Xcode project.
 
+   A. Yes, Thats fine.
+
 3. Confirm the app display name.
    - Recommendation: use `Verba`.
    - This keeps the app name short and neutral while the skill roadmap grows.
+
+   Nah, call her Karen.
 
 4. Confirm the Realtime transport for v1.
    - OpenAI's Realtime WebRTC guide recommends WebRTC over WebSockets for client/mobile-style connections because it gives more consistent performance.
    - Native macOS does not provide a built-in `RTCPeerConnection` API, so WebRTC means adding a native WebRTC dependency and handling packaging/signing risk.
    - Recommendation: build Phase 1 behind a `RealtimeTransport` protocol and use native WebSocket first via `URLSessionWebSocketTask` for v1, because it preserves the no-backend BYO-key model and keeps the scaffold shippable. If you want WebRTC in v1 despite the dependency cost, I will use WebRTC and document the dependency in `AGENTS.md`.
 
+   A. Lets go with your reccomendation.
+
 5. Confirm the skill packaging format.
    - Option A: one Swift Package per skill. This is cleaner once skills become independently versioned, but it adds package boundaries early.
    - Option B: internal folders/modules in the main app target, using the same `Skill` protocol. This is simpler for a one-skill v1 and still keeps the protocol boundary for later extraction.
    - Recommendation: choose Option B for v1, with `Skills/UCCommunicationTraining/` inside the app target. Revisit Option A when a second shipped skill is ready.
+
+   A. Option B
 
 6. Add the canonical training docs before Phase 2 design starts.
    - Missing now: `docs/training/UC-AUTOMATION-COMMUNICATION-TRAINING.md`.

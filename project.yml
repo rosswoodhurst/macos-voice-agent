@@ -20,7 +20,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.rosswoodhurst.verba
-        PRODUCT_NAME: Verba
+        PRODUCT_NAME: Karen
+        PRODUCT_MODULE_NAME: Verba
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: "-"
         ENABLE_HARDENED_RUNTIME: YES
@@ -39,6 +40,8 @@ targets:
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: "-"
         GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Karen.app/Contents/MacOS/Karen"
+        BUNDLE_LOADER: "$(TEST_HOST)"
     dependencies:
       - target: Verba
 schemes:

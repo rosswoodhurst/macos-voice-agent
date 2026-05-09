@@ -4,6 +4,7 @@ import Testing
 
 struct VerbaTests {
     @Test func realtimeModelIsFixed() {
+        #expect(AppConfig.appDisplayName == "Karen")
         #expect(AppConfig.realtimeModel == "gpt-realtime-2")
     }
 

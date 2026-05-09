@@ -1,8 +1,8 @@
-# Verba Roadmap
+# Karen Roadmap
 
 ## Architecture Decisions
 
-- 2026-05-09: The macOS app display name is `Verba`, with bundle id `com.rosswoodhurst.verba`.
+- 2026-05-09: The macOS app display name is `Karen`; the bundle id remains `com.rosswoodhurst.verba`.
 - 2026-05-09: `AppConfig.realtimeModel` is hardcoded to `gpt-realtime-2`; OpenAI WebRTC examples also mention `gpt-realtime`, but project scope fixes the canonical model string.
 - 2026-05-09: Phase 1 uses a `RealtimeTransport` protocol with WebSocket first via `URLSessionWebSocketTask`; WebRTC remains the intended lower-latency target, but native macOS WebRTC adds dependency and signing risk while the v1 auth model has no backend for ephemeral tokens.
 - 2026-05-09: Skill packaging uses Option B for v1: internal app folders conforming to a shared `Skill` protocol. Option A, one Swift Package per skill, is cleaner for independently versioned skills later, but is unnecessary overhead while v1 ships exactly one skill.

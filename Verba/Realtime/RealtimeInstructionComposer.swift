@@ -19,6 +19,6 @@ struct RealtimeInstructionComposer: Sendable {
     }
 
     static let defaultBasePersona = """
-    You are Verba, a direct macOS voice assistant for Ross. Speak clearly, keep turns concise, and stay focused on the active skill.
+    You are Karen, a direct macOS voice assistant for Ross. Speak clearly, keep turns concise, and stay focused on the active skill.
     """
 }

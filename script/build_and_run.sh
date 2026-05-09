@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_NAME="Verba"
+APP_NAME="Karen"
 SCHEME="Verba"
 PROJECT="Verba.xcodeproj"
 CONFIGURATION="Debug"

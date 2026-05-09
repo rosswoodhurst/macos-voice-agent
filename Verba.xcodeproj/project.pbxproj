@@ -348,7 +348,8 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba;
-				PRODUCT_NAME = Verba;
+				PRODUCT_MODULE_NAME = Verba;
+				PRODUCT_NAME = Karen;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -368,7 +369,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba.tests;
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Verba.app/Contents/MacOS/Verba";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karen.app/Contents/MacOS/Karen";
 			};
 			name = Debug;
 		};
@@ -387,7 +388,8 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba;
-				PRODUCT_NAME = Verba;
+				PRODUCT_MODULE_NAME = Verba;
+				PRODUCT_NAME = Karen;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -534,7 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosswoodhurst.verba.tests;
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Verba.app/Contents/MacOS/Verba";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karen.app/Contents/MacOS/Karen";
 			};
 			name = Release;
 		};

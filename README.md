@@ -1,6 +1,6 @@
-# Verba
+# Karen
 
-Verba is a native macOS voice assistant for Ross, a UC Solutions Architect. v1 is focused on one skill: a UC and AI-automation communication training coach that role-plays scenarios, scores performance on a fixed rubric, and tracks progress over time.
+Karen is a native macOS voice assistant for Ross, a UC Solutions Architect. v1 is focused on one skill: a UC and AI-automation communication training coach that role-plays scenarios, scores performance on a fixed rubric, and tracks progress over time.
 
 ## Requirements
 
@@ -10,7 +10,7 @@ Verba is a native macOS voice assistant for Ross, a UC Solutions Architect. v1 i
 
 ## Build and Run
 
-Open `Verba.xcodeproj` in Xcode and run the `Verba` scheme.
+Open `Verba.xcodeproj` in Xcode and run the `Verba` scheme. The built app display name is `Karen`.
 
 From the command line:
 
