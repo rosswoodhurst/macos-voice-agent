@@ -17,6 +17,7 @@
 		557F91F76CFC5B84CA3307AC /* TrainingScoringEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDF1B992A87F6B00C498DCA /* TrainingScoringEngine.swift */; };
 		5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADB26532A940799B2ED83A /* AppConfig.swift */; };
 		5F9190EDCD3AF640274707A1 /* UCCommunicationTrainingSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46114A78A1A05EB2ECFCFB83 /* UCCommunicationTrainingSkill.swift */; };
+		68580715DFE72335C3081E0C /* PCM16AudioBufferFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E2245F7B6A0D9F1968832 /* PCM16AudioBufferFactory.swift */; };
 		6C072C4189FA2EE9AC730BB2 /* AudioAmplitudeMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */; };
 		6E9FA0BE8D7BCDEFE97E5C2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */; };
 		7B838F2AE2EE567AB781D7F2 /* VerbaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */; };
@@ -26,6 +27,7 @@
 		8F7278A18D0867C4B097B521 /* SkillRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */; };
 		90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574A6CDFC46997824F7190E /* SettingsView.swift */; };
 		92672346C97071FEA4600C2D /* TrainingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476E98D0F8E958ECF4819D8D /* TrainingSession.swift */; };
+		95DCB11459A5C68A876CBAF4 /* RealtimeAudioOutputPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9571620BD2230693EA816192 /* RealtimeAudioOutputPlayer.swift */; };
 		B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA320DC063C9286449F36A /* RealtimeTransport.swift */; };
 		B7F91435E4B5595395800EA9 /* DefaultSkillRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CAB3FF4C8258EF3FFB007D /* DefaultSkillRegistry.swift */; };
 		B9F3E7425799ABE0CC308623 /* VoiceOrbState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1337AD9169E08C5DC766E0A /* VoiceOrbState.swift */; };
@@ -66,6 +68,7 @@
 		76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAmplitudeMeter.swift; sourceTree = "<group>"; };
 		7F15108CBAB58BA58B688F88 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		9571620BD2230693EA816192 /* RealtimeAudioOutputPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeAudioOutputPlayer.swift; sourceTree = "<group>"; };
 		A3E36C8F618E1EC1B504F824 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		A8CAB3FF4C8258EF3FFB007D /* DefaultSkillRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSkillRegistry.swift; sourceTree = "<group>"; };
 		B1337AD9169E08C5DC766E0A /* VoiceOrbState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOrbState.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		ED7C0237B2D4A567ECEE57D8 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBadgeEngine.swift; sourceTree = "<group>"; };
 		F6ADB26532A940799B2ED83A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		F88E2245F7B6A0D9F1968832 /* PCM16AudioBufferFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCM16AudioBufferFactory.swift; sourceTree = "<group>"; };
 		FA753963BDBAD89832946A76 /* TrainingProgressSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingProgressSummary.swift; sourceTree = "<group>"; };
 		FD7707606D2B272E1C0AF0E7 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
 		FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */,
+				F88E2245F7B6A0D9F1968832 /* PCM16AudioBufferFactory.swift */,
+				9571620BD2230693EA816192 /* RealtimeAudioOutputPlayer.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -387,7 +393,9 @@
 				B7F91435E4B5595395800EA9 /* DefaultSkillRegistry.swift in Sources */,
 				056A8D2CF28F73CD3C4FE93D /* Exercises.swift in Sources */,
 				F8863B941BBF599F97A60DC8 /* KeychainAuthProvider.swift in Sources */,
+				68580715DFE72335C3081E0C /* PCM16AudioBufferFactory.swift in Sources */,
 				514C87AF5E7D99092D70C1B1 /* ProgressDashboardView.swift in Sources */,
+				95DCB11459A5C68A876CBAF4 /* RealtimeAudioOutputPlayer.swift in Sources */,
 				2FD9858B1DF650EF6B739579 /* RealtimeInstructionComposer.swift in Sources */,
 				84EBCB30B3882C77BAEC13D3 /* RealtimeSessionConfiguration.swift in Sources */,
 				8DD2654745DAF0D378032475 /* RealtimeToolDefinition.swift in Sources */,

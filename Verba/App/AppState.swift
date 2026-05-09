@@ -13,9 +13,14 @@ final class AppState: ObservableObject {
 
     private let authProvider: AuthProvider
     private let amplitudeMeter = AudioAmplitudeMeter()
+    private let audioOutputPlayer: RealtimeAudioOutputPlaying
 
-    init(authProvider: AuthProvider = KeychainAuthProvider()) {
+    init(
+        authProvider: AuthProvider = KeychainAuthProvider(),
+        audioOutputPlayer: RealtimeAudioOutputPlaying = RealtimeAudioOutputPlayer()
+    ) {
         self.authProvider = authProvider
+        self.audioOutputPlayer = audioOutputPlayer
         refreshAPIKeyStatus()
         isSettingsPresented = apiKeyStatus == "not configured"
     }
@@ -67,6 +72,20 @@ final class AppState: ObservableObject {
     func updateOutputLevel(fromPCM16 data: Data) {
         outputLevel = amplitudeMeter.normalizedRMSLevel(fromPCM16: data)
         voicePhase = .speaking
+    }
+
+    func handleRealtimeServerEvent(_ event: RealtimeServerEvent) throws {
+        if let audioDelta = event.outputAudioDelta {
+            try audioOutputPlayer.playPCM16(audioDelta)
+            updateOutputLevel(fromPCM16: audioDelta)
+            return
+        }
+
+        if event.isOutputAudioDone {
+            audioOutputPlayer.stop()
+            outputLevel = 0
+            voicePhase = .idle
+        }
     }
 
     private func refreshAPIKeyStatus() {

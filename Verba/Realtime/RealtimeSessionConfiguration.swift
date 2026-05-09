@@ -4,15 +4,18 @@ struct RealtimeSessionConfiguration: Equatable, Sendable {
     var instructions: String
     var voice: String
     var inputAudioRate: Int
+    var outputAudioRate: Int
 
     init(
         instructions: String,
         voice: String = "marin",
-        inputAudioRate: Int = 24_000
+        inputAudioRate: Int = 24_000,
+        outputAudioRate: Int = 24_000
     ) {
         self.instructions = instructions
         self.voice = voice
         self.inputAudioRate = inputAudioRate
+        self.outputAudioRate = outputAudioRate
     }
 
     func sessionUpdateEvent() -> RealtimeClientEvent {
@@ -28,7 +31,7 @@ struct RealtimeSessionConfiguration: Equatable, Sendable {
                         turnDetection: .init(type: "semantic_vad")
                     ),
                     output: .init(
-                        format: .init(type: "audio/pcm", rate: nil),
+                        format: .init(type: "audio/pcm", rate: outputAudioRate),
                         voice: voice
                     )
                 ),

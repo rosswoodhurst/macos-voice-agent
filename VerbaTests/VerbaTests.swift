@@ -34,6 +34,7 @@ struct VerbaTests {
         #expect(event.type == "session.update")
         #expect(event.session?.model == "gpt-realtime-2")
         #expect(event.session?.instructions == "coach")
+        #expect(event.session?.audio.output.format.rate == 24_000)
     }
 
     @Test func webSocketRealtimeURLUsesFixedModel() throws {
@@ -293,6 +294,66 @@ struct VerbaTests {
         #expect(level < 0.72)
     }
 
+    @Test func realtimeServerEventParsesCurrentOutputAudioDelta() throws {
+        var samples: [Int16] = [0, Int16.max]
+        let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.output_audio.delta","delta":"\#(data.base64EncodedString())"}"#
+        )
+
+        #expect(event.outputAudioDelta == data)
+    }
+
+    @Test func realtimeServerEventParsesLegacyAudioDelta() throws {
+        var samples: [Int16] = [0, Int16.max]
+        let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.audio.delta","delta":"\#(data.base64EncodedString())"}"#
+        )
+
+        #expect(event.outputAudioDelta == data)
+    }
+
+    @Test func pcm16BufferFactoryConvertsLittleEndianSamplesToFloatBuffer() throws {
+        var samples: [Int16] = [0, Int16.max]
+        let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
+
+        let buffer = try PCM16AudioBufferFactory().makeFloatBuffer(fromPCM16: data)
+        let channel = try #require(buffer.floatChannelData?[0])
+
+        #expect(buffer.frameLength == 2)
+        #expect(channel[0] == 0)
+        #expect(channel[1] > 0.99)
+    }
+
+    @MainActor
+    @Test func appStateRoutesRealtimeAudioToPlayerAndAmplitudeMeter() throws {
+        var samples: [Int16] = [0, Int16.max, 0, -Int16.max]
+        let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
+        let player = SpyAudioOutputPlayer()
+        let appState = AppState(
+            authProvider: StaticAuthProvider(apiKey: "sk-test-1234567890"),
+            audioOutputPlayer: player
+        )
+        let deltaEvent = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.output_audio.delta","delta":"\#(data.base64EncodedString())"}"#
+        )
+
+        try appState.handleRealtimeServerEvent(deltaEvent)
+
+        #expect(player.playedPCM16 == [data])
+        #expect(appState.voicePhase == .speaking)
+        #expect(appState.outputLevel > 0.70)
+        #expect(appState.outputLevel < 0.72)
+
+        let doneEvent = try RealtimeServerEvent(jsonString: #"{"type":"response.output_audio.done"}"#)
+        try appState.handleRealtimeServerEvent(doneEvent)
+
+        #expect(player.stopCount == 1)
+        #expect(appState.voicePhase == .idle)
+        #expect(appState.outputLevel == 0)
+    }
+
     @MainActor
     @Test func trainingStoreReturnsMostRecentSessionsFirst() throws {
         let container = try ModelContainer(
@@ -355,5 +416,35 @@ private struct TestSkill: Skill {
 
     func makeToolHandlers() -> [String: SkillToolHandler] {
         [:]
+    }
+}
+
+private struct StaticAuthProvider: AuthProvider {
+    let configuredAPIKey: String?
+
+    init(apiKey: String?) {
+        self.configuredAPIKey = apiKey
+    }
+
+    func apiKey() throws -> String? {
+        configuredAPIKey
+    }
+
+    func saveAPIKey(_ apiKey: String) throws {}
+
+    func deleteAPIKey() throws {}
+}
+
+@MainActor
+private final class SpyAudioOutputPlayer: RealtimeAudioOutputPlaying {
+    private(set) var playedPCM16: [Data] = []
+    private(set) var stopCount = 0
+
+    func playPCM16(_ data: Data) throws {
+        playedPCM16.append(data)
+    }
+
+    func stop() {
+        stopCount += 1
     }
 }

@@ -34,4 +34,23 @@ struct RealtimeServerEvent: Equatable, Sendable {
         self.type = type
         self.rawJSON = jsonString
     }
+
+    var outputAudioDelta: Data? {
+        guard type == "response.output_audio.delta" || type == "response.audio.delta",
+              let data = rawJSON.data(using: .utf8),
+              let event = try? JSONDecoder().decode(RealtimeAudioDeltaEvent.self, from: data)
+        else {
+            return nil
+        }
+
+        return Data(base64Encoded: event.delta)
+    }
+
+    var isOutputAudioDone: Bool {
+        type == "response.output_audio.done" || type == "response.audio.done" || type == "response.done"
+    }
+}
+
+private struct RealtimeAudioDeltaEvent: Decodable {
+    let delta: String
 }
