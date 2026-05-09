@@ -73,6 +73,7 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Build the voice orb states.
 - [x] Sync speaking animation to output audio amplitude.
 - [ ] Wire Realtime model audio playback into the output amplitude meter.
+- [x] Set the visible macOS window and bundle display name to Karen.
 - [x] Build the Progress dashboard.
 - [x] Implement badge awards.
 - [x] Add app icon set.

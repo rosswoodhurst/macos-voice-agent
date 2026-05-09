@@ -4,7 +4,7 @@ import SwiftData
 @main
 struct VerbaApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(AppConfig.appDisplayName) {
             ContentView()
                 .frame(minWidth: 720, minHeight: 800)
         }
