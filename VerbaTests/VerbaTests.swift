@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 @testable import Verba
 
@@ -36,5 +37,65 @@ struct VerbaTests {
         let url = try WebSocketRealtimeTransport.realtimeURL(model: AppConfig.realtimeModel)
 
         #expect(url.absoluteString == "wss://api.openai.com/v1/realtime?model=gpt-realtime-2")
+    }
+
+    @MainActor
+    @Test func skillRegistryPreservesRegistrationOrder() throws {
+        let registry = SkillRegistry()
+        try registry.register(TestSkill(id: "first"))
+        try registry.register(TestSkill(id: "second"))
+
+        #expect(registry.allSkills.map(\.id) == ["first", "second"])
+        #expect(try registry.requireSkill(id: "second").id == "second")
+    }
+
+    @MainActor
+    @Test func skillRegistryRejectsDuplicateIDs() throws {
+        let registry = SkillRegistry()
+        try registry.register(TestSkill(id: "training"))
+
+        do {
+            try registry.register(TestSkill(id: "training"))
+            Issue.record("Expected duplicate registration to throw.")
+        } catch SkillRegistryError.duplicateSkillID(let id) {
+            #expect(id == "training")
+        }
+    }
+
+    @Test func realtimeToolDefinitionEncodesFunctionSchema() throws {
+        let tool = RealtimeToolDefinition(
+            name: "record_session",
+            description: "Persist a finished round.",
+            parameters: .object(
+                properties: [
+                    "exerciseId": .string(),
+                    "total": .integer
+                ],
+                required: ["exerciseId", "total"]
+            )
+        )
+
+        let data = try JSONEncoder().encode(tool)
+        let decoded = try JSONDecoder().decode(RealtimeToolDefinition.self, from: data)
+
+        #expect(decoded == tool)
+    }
+}
+
+private struct TestSkill: Skill {
+    let id: String
+    let displayName: String
+    let systemPromptFragment: String
+    let tools: [RealtimeToolDefinition]
+
+    init(id: String) {
+        self.id = id
+        self.displayName = id
+        self.systemPromptFragment = "test"
+        self.tools = []
+    }
+
+    func makeToolHandlers() -> [String: SkillToolHandler] {
+        [:]
     }
 }

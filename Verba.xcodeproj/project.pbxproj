@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		10906C34E7DB00B4140A8614 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */; };
 		2FD9858B1DF650EF6B739579 /* RealtimeInstructionComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C952DDB803AFFA3D98BD7 /* RealtimeInstructionComposer.swift */; };
+		44BE1ED1CF802ACBBC186785 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6802509DE06810EF66E6B26A /* Skill.swift */; };
 		5C041DDA31417C5F05437C96 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADB26532A940799B2ED83A /* AppConfig.swift */; };
 		6E9FA0BE8D7BCDEFE97E5C2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */; };
 		7B838F2AE2EE567AB781D7F2 /* VerbaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */; };
 		84EBCB30B3882C77BAEC13D3 /* RealtimeSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80CFDF07CE4B4C18D5CA496 /* RealtimeSessionConfiguration.swift */; };
+		8DD2654745DAF0D378032475 /* RealtimeToolDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D09F0315FBB1DC3308BE067 /* RealtimeToolDefinition.swift */; };
+		8F7278A18D0867C4B097B521 /* SkillRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */; };
 		90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574A6CDFC46997824F7190E /* SettingsView.swift */; };
 		B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA320DC063C9286449F36A /* RealtimeTransport.swift */; };
 		C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B727E846F9E18D4D48355 /* VerbaApp.swift */; };
@@ -39,7 +42,9 @@
 		3BBA320DC063C9286449F36A /* RealtimeTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTransport.swift; sourceTree = "<group>"; };
 		49749C822A362CB42CE64588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		51AEAA99E4D6EFFB73E7424D /* VerbaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbaTests.swift; sourceTree = "<group>"; };
+		6802509DE06810EF66E6B26A /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		6C8F40C3A74F4225DF1A4A41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6D09F0315FBB1DC3308BE067 /* RealtimeToolDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeToolDefinition.swift; sourceTree = "<group>"; };
 		7F15108CBAB58BA58B688F88 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		B80CFDF07CE4B4C18D5CA496 /* RealtimeSessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSessionConfiguration.swift; sourceTree = "<group>"; };
@@ -49,6 +54,7 @@
 		CE4DE455BB2F598E552A47F0 /* Verba.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Verba.entitlements; sourceTree = "<group>"; };
 		D4EF384C25FE12D67E4A3410 /* KeychainAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAuthProvider.swift; sourceTree = "<group>"; };
 		D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketRealtimeTransport.swift; sourceTree = "<group>"; };
+		DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRegistry.swift; sourceTree = "<group>"; };
 		E54B4E945161F444E90F7F83 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F6ADB26532A940799B2ED83A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +85,7 @@
 				FE958738EE3FBBEA3F049C54 /* App */,
 				D4AB40E78371CE7F672FED46 /* Auth */,
 				9C74C1C500C725051106CCC1 /* Realtime */,
+				E3B55E60537F2121367F2B44 /* Skills */,
 				D4EC7CA1CB44651D7F308DD5 /* Support */,
 				9B7614D98EB5A4488712EF40 /* UI */,
 			);
@@ -131,6 +138,16 @@
 				CE4DE455BB2F598E552A47F0 /* Verba.entitlements */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		E3B55E60537F2121367F2B44 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				6D09F0315FBB1DC3308BE067 /* RealtimeToolDefinition.swift */,
+				6802509DE06810EF66E6B26A /* Skill.swift */,
+				DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */,
+			);
+			path = Skills;
 			sourceTree = "<group>";
 		};
 		FE958738EE3FBBEA3F049C54 /* App */ = {
@@ -251,8 +268,11 @@
 				F8863B941BBF599F97A60DC8 /* KeychainAuthProvider.swift in Sources */,
 				2FD9858B1DF650EF6B739579 /* RealtimeInstructionComposer.swift in Sources */,
 				84EBCB30B3882C77BAEC13D3 /* RealtimeSessionConfiguration.swift in Sources */,
+				8DD2654745DAF0D378032475 /* RealtimeToolDefinition.swift in Sources */,
 				B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */,
 				90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */,
+				44BE1ED1CF802ACBBC186785 /* Skill.swift in Sources */,
+				8F7278A18D0867C4B097B521 /* SkillRegistry.swift in Sources */,
 				C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */,
 				D6A77685E8872555BC94B384 /* WebSocketRealtimeTransport.swift in Sources */,
 			);

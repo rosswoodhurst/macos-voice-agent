@@ -59,7 +59,7 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Implement WebSocket Realtime transport.
 - [x] Compose and update Realtime session instructions.
 - [ ] Read both canonical training docs in full.
-- [ ] Implement `Skill` protocol and `SkillRegistry`.
+- [x] Implement `Skill` protocol and `SkillRegistry`.
 - [ ] Register exactly one v1 skill: `UCCommunicationTrainingSkill`.
 - [ ] Embed all 10 exercise prompt blocks verbatim.
 - [ ] Implement required training Realtime tools.
