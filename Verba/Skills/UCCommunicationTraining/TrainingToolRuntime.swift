@@ -3,20 +3,25 @@ import Foundation
 actor TrainingToolRuntime {
     private let trainingStore: TrainingStore?
     private let scoringEngine: TrainingScoringEngine
+    private let badgeEngine: TrainingBadgeEngine
     private var roundStartsByExerciseID: [String: Date] = [:]
     private var jargonInterruptionsByExerciseID: [String: [String]] = [:]
     private var phraseRecallResults: [Int: PhraseRecallVerdict] = [:]
+    private var activeExerciseID: String?
 
     init(
         trainingStore: TrainingStore? = nil,
-        scoringEngine: TrainingScoringEngine = TrainingScoringEngine()
+        scoringEngine: TrainingScoringEngine = TrainingScoringEngine(),
+        badgeEngine: TrainingBadgeEngine = TrainingBadgeEngine()
     ) {
         self.trainingStore = trainingStore
         self.scoringEngine = scoringEngine
+        self.badgeEngine = badgeEngine
     }
 
     func startRound(argumentsJSON: String) throws -> SkillToolResult {
         let arguments = try decode(StartRoundArguments.self, from: argumentsJSON)
+        activeExerciseID = arguments.exerciseId
         roundStartsByExerciseID[arguments.exerciseId] = Date()
         jargonInterruptionsByExerciseID[arguments.exerciseId] = []
         phraseRecallResults.removeAll()
@@ -30,10 +35,25 @@ actor TrainingToolRuntime {
         let startedAt = roundStartsByExerciseID[arguments.exerciseId]
             ?? endedAt.addingTimeInterval(-arguments.durationSec)
         let transcriptRef = UUID(uuidString: arguments.transcriptId)
+        let jargonInterruptionCount = jargonInterruptionsByExerciseID[arguments.exerciseId, default: []].count
+        let wordForWordPhraseRecallCount = phraseRecallResults.values.filter { $0 == .wordForWord }.count
 
         let sessionID: UUID
+        let awardedBadges: [BadgeKind]
         if let trainingStore {
-            sessionID = try await MainActor.run {
+            let persisted = try await MainActor.run {
+                let hasPriorSixteenPlus = try trainingStore.recentSessions(limit: 1_000).contains {
+                    $0.exerciseId == arguments.exerciseId && $0.total >= 16
+                }
+                let earnedBadges = badgeEngine.earnedBadges(
+                    context: TrainingBadgeContext(
+                        exerciseId: arguments.exerciseId,
+                        total: dimensions.total,
+                        jargonInterruptionCount: jargonInterruptionCount,
+                        wordForWordPhraseRecallCount: wordForWordPhraseRecallCount,
+                        hasPriorSixteenPlusForExercise: hasPriorSixteenPlus
+                    )
+                )
                 let session = TrainingSession(
                     exerciseId: arguments.exerciseId,
                     startedAt: startedAt,
@@ -45,27 +65,45 @@ actor TrainingToolRuntime {
                     transcriptRef: transcriptRef
                 )
                 try trainingStore.insertSession(session)
-                return session.id
+                for badgeKind in earnedBadges {
+                    try trainingStore.insertBadge(
+                        Badge(kind: badgeKind, sessionRef: session.id)
+                    )
+                }
+                return (session.id, earnedBadges)
             }
+            sessionID = persisted.0
+            awardedBadges = persisted.1
         } else {
             sessionID = UUID()
+            awardedBadges = badgeEngine.earnedBadges(
+                context: TrainingBadgeContext(
+                    exerciseId: arguments.exerciseId,
+                    total: dimensions.total,
+                    jargonInterruptionCount: jargonInterruptionCount,
+                    wordForWordPhraseRecallCount: wordForWordPhraseRecallCount,
+                    hasPriorSixteenPlusForExercise: false
+                )
+            )
         }
 
         roundStartsByExerciseID[arguments.exerciseId] = nil
+        activeExerciseID = nil
 
         return try jsonResult(
             RecordSessionResult(
                 status: "recorded",
                 sessionId: sessionID.uuidString,
                 persisted: trainingStore != nil,
-                total: dimensions.total
+                total: dimensions.total,
+                badges: awardedBadges.map(\.rawValue)
             )
         )
     }
 
     func flagJargonInterruption(argumentsJSON: String) throws -> SkillToolResult {
         let arguments = try decode(FlagJargonInterruptionArguments.self, from: argumentsJSON)
-        let exerciseID = arguments.exerciseId ?? "active"
+        let exerciseID = arguments.exerciseId ?? activeExerciseID ?? "active"
         jargonInterruptionsByExerciseID[exerciseID, default: []].append(arguments.word)
         return try jsonResult(
             FlagJargonInterruptionResult(
@@ -138,6 +176,7 @@ private struct RecordSessionResult: Encodable {
     let sessionId: String
     let persisted: Bool
     let total: Double
+    let badges: [String]
 }
 
 private struct FlagJargonInterruptionArguments: Decodable {

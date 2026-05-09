@@ -31,4 +31,8 @@ final class TrainingStore: @unchecked Sendable {
         descriptor.fetchLimit = limit
         return try modelContext.fetch(descriptor)
     }
+
+    func badges() throws -> [Badge] {
+        try modelContext.fetch(FetchDescriptor<Badge>())
+    }
 }

@@ -159,11 +159,13 @@ struct VerbaTests {
         )
 
         let recent = try store.recentSessions(limit: 10)
+        let badges = try store.badges()
 
         #expect(result?.json.contains(#""persisted":true"#) == true)
         #expect(recent.count == 1)
         #expect(recent.first?.exerciseId == "exercise-1")
         #expect(recent.first?.total == 16)
+        #expect(Set(badges.map(\.kind)) == [.firstSixteenPlus, .noJargonRound])
     }
 
     @Test func trainingScoringEngineTotalsFourDimensions() throws {
@@ -196,6 +198,34 @@ struct VerbaTests {
         } catch {
             Issue.record("Unexpected error: \(error)")
         }
+    }
+
+    @Test func badgeEngineAwardsCoreBadges() {
+        let badges = TrainingBadgeEngine().earnedBadges(
+            context: TrainingBadgeContext(
+                exerciseId: "exercise-9",
+                total: 16,
+                jargonInterruptionCount: 0,
+                wordForWordPhraseRecallCount: 8,
+                hasPriorSixteenPlusForExercise: false
+            )
+        )
+
+        #expect(badges == [.firstSixteenPlus, .phraseRecall, .noJargonRound])
+    }
+
+    @Test func badgeEngineDoesNotRepeatSixteenPlusBadge() {
+        let badges = TrainingBadgeEngine().earnedBadges(
+            context: TrainingBadgeContext(
+                exerciseId: "exercise-3",
+                total: 18,
+                jargonInterruptionCount: 2,
+                wordForWordPhraseRecallCount: 0,
+                hasPriorSixteenPlusForExercise: true
+            )
+        )
+
+        #expect(badges.isEmpty)
     }
 
     @MainActor

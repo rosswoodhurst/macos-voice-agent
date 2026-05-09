@@ -26,6 +26,7 @@
 		92672346C97071FEA4600C2D /* TrainingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476E98D0F8E958ECF4819D8D /* TrainingSession.swift */; };
 		B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA320DC063C9286449F36A /* RealtimeTransport.swift */; };
 		B7F91435E4B5595395800EA9 /* DefaultSkillRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CAB3FF4C8258EF3FFB007D /* DefaultSkillRegistry.swift */; };
+		C08EA67854CEDCB756BF00EA /* TrainingBadgeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */; };
 		C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B727E846F9E18D4D48355 /* VerbaApp.swift */; };
 		D6A77685E8872555BC94B384 /* WebSocketRealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */; };
 		DFAC3143F0C833AFCF4119BD /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E36C8F618E1EC1B504F824 /* Badge.swift */; };
@@ -75,6 +76,7 @@
 		E2AD95AECC2F76E52C04E229 /* TrainingToolRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingToolRuntime.swift; sourceTree = "<group>"; };
 		E54B4E945161F444E90F7F83 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		ED7C0237B2D4A567ECEE57D8 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
+		F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBadgeEngine.swift; sourceTree = "<group>"; };
 		F6ADB26532A940799B2ED83A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		FEFA63436B0AA919F0BEF8DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDF1B992A87F6B00C498DCA /* TrainingScoringEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingScoringEngine.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		80EAE825375EF2565DD922BF /* Training */ = {
 			isa = PBXGroup;
 			children = (
+				D1E8ED4A6D2772126CE1A5A2 /* Badges */,
 				5229F04E5CB0E9720DF71975 /* Exercises */,
 				27F73CD10D7AFE4A33137DC1 /* Models */,
 				210F3D39D31C619212B03083 /* Persistence */,
@@ -187,6 +190,14 @@
 				27E7006FDB0549D41D5DD8D6 /* VerbaTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D1E8ED4A6D2772126CE1A5A2 /* Badges */ = {
+			isa = PBXGroup;
+			children = (
+				F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */,
+			);
+			path = Badges;
 			sourceTree = "<group>";
 		};
 		D4AB40E78371CE7F672FED46 /* Auth */ = {
@@ -354,6 +365,7 @@
 				90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */,
 				44BE1ED1CF802ACBBC186785 /* Skill.swift in Sources */,
 				8F7278A18D0867C4B097B521 /* SkillRegistry.swift in Sources */,
+				C08EA67854CEDCB756BF00EA /* TrainingBadgeEngine.swift in Sources */,
 				298938E82F311AD9A8F87212 /* TrainingScoreDimensions.swift in Sources */,
 				557F91F76CFC5B84CA3307AC /* TrainingScoringEngine.swift in Sources */,
 				92672346C97071FEA4600C2D /* TrainingSession.swift in Sources */,
