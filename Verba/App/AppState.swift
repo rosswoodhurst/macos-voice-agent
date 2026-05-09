@@ -4,7 +4,11 @@ import Foundation
 final class AppState: ObservableObject {
     @Published private(set) var apiKeyStatus = "not configured"
     @Published var isSettingsPresented = false
+    @Published var isProgressPresented = false
     @Published var settingsError: String?
+    @Published var voicePhase: VoiceOrbPhase = .idle
+    @Published var inputLevel = 0.0
+    @Published var outputLevel = 0.0
 
     private let authProvider: AuthProvider
 
@@ -33,6 +37,23 @@ final class AppState: ObservableObject {
             isSettingsPresented = true
         } catch {
             settingsError = error.localizedDescription
+        }
+    }
+
+    func handlePrimaryAction() {
+        switch voicePhase {
+        case .idle:
+            voicePhase = .listening
+            inputLevel = 0.34
+        case .listening:
+            voicePhase = .thinking
+            inputLevel = 0
+        case .thinking:
+            voicePhase = .speaking
+            outputLevel = 0.42
+        case .speaking:
+            voicePhase = .idle
+            outputLevel = 0
         }
     }
 

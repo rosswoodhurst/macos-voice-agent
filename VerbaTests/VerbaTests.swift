@@ -229,6 +229,38 @@ struct VerbaTests {
     }
 
     @MainActor
+    @Test func progressSummaryCalculatesStreakAndLatestSessions() throws {
+        let calendar = Calendar(identifier: .gregorian)
+        let now = Date(timeIntervalSince1970: 1_000_000)
+        let sessionA = TrainingSession(
+            exerciseId: "exercise-1",
+            startedAt: now,
+            dimensions: TrainingScoreDimensions(clarity: 3, jargon: 3, outcome: 3, delivery: 3),
+            strongestQuote: "",
+            weakestQuote: "",
+            fix: ""
+        )
+        let sessionB = TrainingSession(
+            exerciseId: "exercise-2",
+            startedAt: now.addingTimeInterval(-86_400),
+            dimensions: TrainingScoreDimensions(clarity: 4, jargon: 4, outcome: 4, delivery: 4),
+            strongestQuote: "",
+            weakestQuote: "",
+            fix: ""
+        )
+
+        let summary = TrainingProgressSummary(
+            sessions: [sessionB, sessionA],
+            badges: [],
+            now: now,
+            calendar: calendar
+        )
+
+        #expect(summary.latestTen.map(\.exerciseId) == ["exercise-1", "exercise-2"])
+        #expect(summary.streakDaysThisWeek == 2)
+    }
+
+    @MainActor
     @Test func trainingStoreReturnsMostRecentSessionsFirst() throws {
         let container = try ModelContainer(
             for: TrainingSession.self,

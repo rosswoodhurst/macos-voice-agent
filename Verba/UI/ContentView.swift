@@ -13,7 +13,11 @@ struct ContentView: View {
 
                 Spacer()
 
-                VoiceOrbView()
+                VoiceOrbView(
+                    phase: appState.voicePhase,
+                    inputLevel: appState.inputLevel,
+                    outputLevel: appState.outputLevel
+                )
                     .frame(width: 260, height: 260)
 
                 Text("Which exercise?")
@@ -23,7 +27,7 @@ struct ContentView: View {
 
                 Spacer()
 
-                FooterView()
+                FooterView(appState: appState)
             }
             .padding(.horizontal, 24)
             .padding(.top, 8)
@@ -31,6 +35,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $appState.isSettingsPresented) {
             SettingsView(appState: appState)
+        }
+        .sheet(isPresented: $appState.isProgressPresented) {
+            ProgressDashboardView()
         }
     }
 }
@@ -65,28 +72,67 @@ private struct HeaderView: View {
 }
 
 private struct VoiceOrbView: View {
+    let phase: VoiceOrbPhase
+    let inputLevel: Double
+    let outputLevel: Double
+
     @State private var isBreathing = false
 
     var body: some View {
-        Circle()
-            .fill(.white)
-            .scaleEffect(isBreathing ? 1.04 : 0.98)
-            .animation(
-                .easeInOut(duration: 2.6).repeatForever(autoreverses: true),
-                value: isBreathing
-            )
-            .onAppear {
-                isBreathing = true
+        TimelineView(.animation) { timeline in
+            ZStack {
+                if phase == .thinking {
+                    Circle()
+                        .trim(from: 0.08, to: 0.32)
+                        .stroke(.white.opacity(0.82), lineWidth: 2)
+                        .rotationEffect(.degrees(timeline.date.timeIntervalSinceReferenceDate * 52))
+                        .frame(width: 286, height: 286)
+                }
+
+                Circle()
+                    .fill(fillColor)
+                    .scaleEffect(scale)
             }
+        }
+        .animation(.easeInOut(duration: 0.22), value: phase)
+        .animation(.easeInOut(duration: 0.22), value: inputLevel)
+        .animation(.easeInOut(duration: 0.12), value: outputLevel)
+        .onAppear {
+            isBreathing = true
+        }
+    }
+
+    private var fillColor: Color {
+        switch phase {
+        case .listening:
+            Color(red: 0.82, green: 0.92, blue: 1.0)
+        default:
+            .white
+        }
+    }
+
+    private var scale: Double {
+        switch phase {
+        case .idle:
+            isBreathing ? 1.04 : 0.98
+        case .listening:
+            1.0 + min(max(inputLevel, 0), 1) * 0.10
+        case .thinking:
+            1.0
+        case .speaking:
+            1.0 + min(max(outputLevel, 0), 1) * 0.16
+        }
     }
 }
 
 private struct FooterView: View {
+    @ObservedObject var appState: AppState
+
     var body: some View {
         HStack {
             Spacer()
 
-            Button("tap to talk", action: {})
+            Button(appState.voicePhase.primaryActionTitle, action: appState.handlePrimaryAction)
                 .buttonStyle(.plain)
                 .font(.caption)
                 .fontWeight(.medium)
@@ -94,7 +140,9 @@ private struct FooterView: View {
 
             Spacer()
 
-            Button(action: {}) {
+            Button(action: {
+                appState.isProgressPresented = true
+            }) {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
             .buttonStyle(.plain)

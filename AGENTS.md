@@ -70,9 +70,9 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Unit-test scoring engine.
 - [x] Unit-test skill registry.
 - [x] Unit-test pure-data transforms.
-- [ ] Build the voice orb states.
+- [x] Build the voice orb states.
 - [ ] Sync speaking animation to output audio amplitude.
-- [ ] Build the Progress dashboard.
+- [x] Build the Progress dashboard.
 - [x] Implement badge awards.
 - [ ] Add app icon set.
 - [ ] Add README screenshot.
