@@ -78,5 +78,6 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Build the Progress dashboard.
 - [x] Implement badge awards.
 - [x] Add app icon set.
-- [ ] Add README screenshot.
+- [x] Add README orb preview asset.
+- [ ] Capture a literal README screenshot once macOS Screen Recording permission is available.
 - [ ] Verify v1 definition of done.
