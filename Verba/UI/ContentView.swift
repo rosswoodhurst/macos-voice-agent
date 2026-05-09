@@ -1,13 +1,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var appState = AppState()
+
     var body: some View {
         ZStack {
             Color(hex: 0x000000)
                 .ignoresSafeArea()
 
             VStack(spacing: 48) {
-                HeaderView()
+                HeaderView(appState: appState)
 
                 Spacer()
 
@@ -27,10 +29,15 @@ struct ContentView: View {
             .padding(.top, 8)
             .padding(.bottom, 16)
         }
+        .sheet(isPresented: $appState.isSettingsPresented) {
+            SettingsView(appState: appState)
+        }
     }
 }
 
 private struct HeaderView: View {
+    @ObservedObject var appState: AppState
+
     var body: some View {
         HStack {
             Text("uc communication training")
@@ -46,7 +53,9 @@ private struct HeaderView: View {
             .buttonStyle(.plain)
             .foregroundStyle(.white)
 
-            Button(action: {}) {
+            Button(action: {
+                appState.isSettingsPresented = true
+            }) {
                 Image(systemName: "gearshape")
             }
             .buttonStyle(.plain)

@@ -53,8 +53,8 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Add app shell with fixed model config and placeholder UI.
 - [x] Add MIT license, README, `.gitignore`, and build/run script.
 - [x] Verify Phase 0 build from a clean checkout.
-- [ ] Implement Keychain-backed API key storage.
-- [ ] Add `AuthProvider` abstraction.
+- [x] Implement Keychain-backed API key storage.
+- [x] Add `AuthProvider` abstraction.
 - [ ] Implement Realtime transport protocol.
 - [ ] Implement WebSocket Realtime transport.
 - [ ] Compose and update Realtime session instructions.
