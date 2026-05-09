@@ -61,7 +61,7 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Add SwiftData model types for training sessions, transcripts, and badges.
 - [x] Add SwiftData training store.
 - [x] Add fixed-rubric scoring validation.
-- [ ] Read both canonical training docs in full.
+- [x] Read both canonical training docs in full.
 - [x] Implement `Skill` protocol and `SkillRegistry`.
 - [ ] Register exactly one v1 skill: `UCCommunicationTrainingSkill`.
 - [ ] Embed all 10 exercise prompt blocks verbatim.
