@@ -67,9 +67,9 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Embed all 10 exercise prompt blocks verbatim.
 - [x] Implement required training Realtime tools.
 - [x] Persist training sessions, transcripts, and badges with SwiftData.
-- [ ] Unit-test scoring engine.
-- [ ] Unit-test skill registry.
-- [ ] Unit-test pure-data transforms.
+- [x] Unit-test scoring engine.
+- [x] Unit-test skill registry.
+- [x] Unit-test pure-data transforms.
 - [ ] Build the voice orb states.
 - [ ] Sync speaking animation to output audio amplitude.
 - [ ] Build the Progress dashboard.
