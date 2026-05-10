@@ -14,6 +14,8 @@ final class AppState: ObservableObject {
     private let authProvider: AuthProvider
     private let amplitudeMeter = AudioAmplitudeMeter()
     private let audioOutputPlayer: RealtimeAudioOutputPlaying
+    private var trainingStore: TrainingStore?
+    private var sessionController: (any RealtimeSessionControlling)?
 
     init(
         authProvider: AuthProvider = KeychainAuthProvider(),
@@ -23,6 +25,10 @@ final class AppState: ObservableObject {
         self.audioOutputPlayer = audioOutputPlayer
         refreshAPIKeyStatus()
         isSettingsPresented = apiKeyStatus == "not configured"
+    }
+
+    func configureTrainingStore(_ trainingStore: TrainingStore) {
+        self.trainingStore = trainingStore
     }
 
     func saveAPIKey(_ apiKey: String) {
@@ -48,19 +54,36 @@ final class AppState: ObservableObject {
     }
 
     func handlePrimaryAction() {
-        switch voicePhase {
-        case .idle:
-            voicePhase = .listening
-            inputLevel = 0.34
-        case .listening:
-            voicePhase = .thinking
+        Task {
+            await toggleRealtimeSession()
+        }
+    }
+
+    private func toggleRealtimeSession() async {
+        if let sessionController, sessionController.isRunning {
+            await sessionController.stop()
+            self.sessionController = nil
             inputLevel = 0
-        case .thinking:
-            voicePhase = .speaking
-            outputLevel = 0.42
-        case .speaking:
-            voicePhase = .idle
             outputLevel = 0
+            voicePhase = .idle
+            return
+        }
+
+        do {
+            voicePhase = .thinking
+            let sessionController = makeRealtimeSessionController()
+            self.sessionController = sessionController
+            try await sessionController.start()
+            voicePhase = .listening
+            settingsError = nil
+        } catch {
+            inputLevel = 0
+            outputLevel = 0
+            voicePhase = .idle
+            settingsError = error.localizedDescription
+            if error as? AuthProviderError == .invalidAPIKey {
+                isSettingsPresented = true
+            }
         }
     }
 
@@ -86,6 +109,26 @@ final class AppState: ObservableObject {
             outputLevel = 0
             voicePhase = .idle
         }
+    }
+
+    private func makeRealtimeSessionController() -> any RealtimeSessionControlling {
+        let skill = UCCommunicationTrainingSkill(
+            runtime: TrainingToolRuntime(trainingStore: trainingStore)
+        )
+        return RealtimeSessionController(
+            authProvider: authProvider,
+            activeSkill: skill,
+            onInputLevel: { [weak self] level in
+                self?.inputLevel = level
+                self?.voicePhase = .listening
+            },
+            onServerEvent: { [weak self] event in
+                try self?.handleRealtimeServerEvent(event)
+            },
+            onError: { [weak self] error in
+                self?.settingsError = error.localizedDescription
+            }
+        )
     }
 
     private func refreshAPIKeyStatus() {

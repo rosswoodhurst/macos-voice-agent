@@ -382,6 +382,40 @@ struct VerbaTests {
         ])
     }
 
+    @MainActor
+    @Test func realtimeSessionControllerConnectsSkillToolsAndStartsMicrophone() async throws {
+        let tool = RealtimeToolDefinition(
+            name: "start_round",
+            description: "Start.",
+            parameters: .object(properties: [:], required: [])
+        )
+        let transport = SpyRealtimeTransport()
+        let capture = FakeMicrophoneCapture()
+        var levels: [Double] = []
+        let controller = RealtimeSessionController(
+            authProvider: StaticAuthProvider(apiKey: "sk-test-1234567890"),
+            transport: transport,
+            activeSkill: TestSkill(id: "skill", tools: [tool]),
+            makeMicrophoneCapture: { capture },
+            onInputLevel: { levels.append($0) },
+            onServerEvent: { _ in }
+        )
+
+        try await controller.start()
+        capture.emit(Data([0x01]), level: 0.25)
+        try await Task.sleep(nanoseconds: 10_000_000)
+
+        #expect(controller.isRunning)
+        #expect(capture.startCount == 1)
+        #expect(await transport.connectedConfigurations.map(\.tools) == [[tool]])
+        #expect(levels == [0.25])
+
+        await controller.stop()
+
+        #expect(capture.stopCount == 1)
+        #expect(await transport.disconnectCount == 1)
+    }
+
     @Test func pcm16BufferFactoryConvertsLittleEndianSamplesToFloatBuffer() throws {
         var samples: [Int16] = [0, Int16.max]
         let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
@@ -513,11 +547,11 @@ private struct TestSkill: Skill {
     let systemPromptFragment: String
     let tools: [RealtimeToolDefinition]
 
-    init(id: String) {
+    init(id: String, tools: [RealtimeToolDefinition] = []) {
         self.id = id
         self.displayName = id
         self.systemPromptFragment = "test"
-        self.tools = []
+        self.tools = tools
     }
 
     func makeToolHandlers() -> [String: SkillToolHandler] {
@@ -557,8 +591,12 @@ private final class SpyAudioOutputPlayer: RealtimeAudioOutputPlaying {
 
 private actor SpyRealtimeTransport: RealtimeTransport {
     private(set) var sentEvents: [RealtimeClientEvent] = []
+    private(set) var connectedConfigurations: [RealtimeSessionConfiguration] = []
+    private(set) var disconnectCount = 0
 
-    func connect(apiKey: String, configuration: RealtimeSessionConfiguration) async throws {}
+    func connect(apiKey: String, configuration: RealtimeSessionConfiguration) async throws {
+        connectedConfigurations.append(configuration)
+    }
 
     func send(_ event: RealtimeClientEvent) async throws {
         sentEvents.append(event)
@@ -568,10 +606,26 @@ private actor SpyRealtimeTransport: RealtimeTransport {
         throw RealtimeTransportError.disconnected
     }
 
-    func disconnect() async {}
+    func disconnect() async {
+        disconnectCount += 1
+    }
 }
 
 private final class FakeMicrophoneCapture: MicrophoneInputCapturing, @unchecked Sendable {
-    func start(onAudioChunk: @escaping @Sendable (Data, Double) -> Void) throws {}
-    func stop() {}
+    private(set) var startCount = 0
+    private(set) var stopCount = 0
+    private var onAudioChunk: (@Sendable (Data, Double) -> Void)?
+
+    func start(onAudioChunk: @escaping @Sendable (Data, Double) -> Void) throws {
+        startCount += 1
+        self.onAudioChunk = onAudioChunk
+    }
+
+    func stop() {
+        stopCount += 1
+    }
+
+    func emit(_ data: Data, level: Double) {
+        onAudioChunk?(data, level)
+    }
 }

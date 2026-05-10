@@ -1,6 +1,8 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var appState = AppState()
 
     var body: some View {
@@ -38,6 +40,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $appState.isProgressPresented) {
             ProgressDashboardView()
+        }
+        .onAppear {
+            appState.configureTrainingStore(TrainingStore(modelContext: modelContext))
         }
     }
 }
