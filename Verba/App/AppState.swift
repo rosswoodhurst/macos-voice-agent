@@ -54,8 +54,8 @@ final class AppState: ObservableObject {
     }
 
     func handlePrimaryAction() {
-        Task {
-            await toggleRealtimeSession()
+        Task { @MainActor [weak self] in
+            await self?.toggleRealtimeSession()
         }
     }
 

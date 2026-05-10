@@ -139,11 +139,15 @@ private struct FooterView: View {
         HStack {
             Spacer()
 
-            Button(appState.voicePhase.primaryActionTitle, action: appState.handlePrimaryAction)
-                .buttonStyle(.plain)
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundStyle(.white)
+            Button(action: {
+                appState.handlePrimaryAction()
+            }) {
+                Text(appState.voicePhase.primaryActionTitle)
+            }
+            .buttonStyle(.plain)
+            .font(.caption)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
 
             Spacer()
 
