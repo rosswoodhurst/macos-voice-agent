@@ -82,6 +82,7 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Fix live primary-action crash during Realtime verification.
 - [x] Fix settings button crash during API-key entry.
 - [x] Surface Realtime server errors during live audio verification.
+- [x] Fix Realtime audio playback format mismatch.
 - [x] Set the visible macOS window and bundle display name to Karen.
 - [x] Build the Progress dashboard.
 - [x] Implement badge awards.

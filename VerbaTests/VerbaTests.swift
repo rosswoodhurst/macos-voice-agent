@@ -489,6 +489,14 @@ struct VerbaTests {
         #expect(channel[1] > 0.99)
     }
 
+    @MainActor
+    @Test func realtimeAudioOutputPlayerConnectsWithRealtimeMonoFormat() {
+        let player = RealtimeAudioOutputPlayer()
+
+        #expect(player.playbackFormat.sampleRate == 24_000)
+        #expect(player.playbackFormat.channelCount == 1)
+    }
+
     @Test func pcm16AudioConverterConvertsFloatBufferToLittleEndianPCM() throws {
         let format = try #require(AVAudioFormat(
             commonFormat: .pcmFormatFloat32,

@@ -12,6 +12,7 @@ final class RealtimeAudioOutputPlayer: RealtimeAudioOutputPlaying {
     private let engine: AVAudioEngine
     private let playerNode: AVAudioPlayerNode
     private let bufferFactory: PCM16AudioBufferFactory
+    private(set) var playbackFormat: AVAudioFormat
 
     init(
         engine: AVAudioEngine = AVAudioEngine(),
@@ -21,9 +22,18 @@ final class RealtimeAudioOutputPlayer: RealtimeAudioOutputPlaying {
         self.engine = engine
         self.playerNode = playerNode
         self.bufferFactory = bufferFactory
+        guard let playbackFormat = AVAudioFormat(
+            commonFormat: .pcmFormatFloat32,
+            sampleRate: bufferFactory.sampleRate,
+            channels: bufferFactory.channelCount,
+            interleaved: false
+        ) else {
+            preconditionFailure("Unable to create Realtime playback format.")
+        }
+        self.playbackFormat = playbackFormat
 
         engine.attach(playerNode)
-        engine.connect(playerNode, to: engine.mainMixerNode, format: nil)
+        engine.connect(playerNode, to: engine.mainMixerNode, format: playbackFormat)
         engine.prepare()
     }
 
