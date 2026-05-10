@@ -28,13 +28,19 @@ struct VerbaTests {
     }
 
     @Test func sessionUpdateUsesFixedRealtimeModel() throws {
-        let configuration = RealtimeSessionConfiguration(instructions: "coach")
+        let tool = RealtimeToolDefinition(
+            name: "record_session",
+            description: "Persist score.",
+            parameters: .object(properties: [:], required: [])
+        )
+        let configuration = RealtimeSessionConfiguration(instructions: "coach", tools: [tool])
         let event = configuration.sessionUpdateEvent()
 
         #expect(event.type == "session.update")
         #expect(event.session?.model == "gpt-realtime-2")
         #expect(event.session?.instructions == "coach")
         #expect(event.session?.audio.output.format.rate == 24_000)
+        #expect(event.session?.tools == [tool])
     }
 
     @Test func webSocketRealtimeURLUsesFixedModel() throws {
@@ -314,6 +320,60 @@ struct VerbaTests {
         #expect(event.outputAudioDelta == data)
     }
 
+    @Test func realtimeServerEventParsesDirectFunctionCallDoneEvent() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.function_call_arguments.done","call_id":"call_123","name":"record_session","arguments":"{\"exerciseId\":\"exercise-1\"}"}"#
+        )
+
+        #expect(
+            event.functionToolCall == RealtimeFunctionToolCall(
+                callID: "call_123",
+                name: "record_session",
+                argumentsJSON: #"{"exerciseId":"exercise-1"}"#
+            )
+        )
+    }
+
+    @Test func realtimeServerEventParsesNestedFunctionCallDoneEvent() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.function_call_arguments.done","item":{"id":"item_123","call_id":"call_456","name":"start_round","arguments":"{\"exerciseId\":\"exercise-2\"}"}}"#
+        )
+
+        #expect(
+            event.functionToolCall == RealtimeFunctionToolCall(
+                callID: "call_456",
+                name: "start_round",
+                argumentsJSON: #"{"exerciseId":"exercise-2"}"#
+            )
+        )
+    }
+
+    @MainActor
+    @Test func realtimeToolCallResponderSendsFunctionOutputAndNextResponse() async throws {
+        let transport = SpyRealtimeTransport()
+        let responder = RealtimeToolCallResponder(
+            handlers: [
+                "start_round": { invocation in
+                    #expect(invocation.argumentsJSON == #"{"exerciseId":"exercise-2"}"#)
+                    return SkillToolResult(json: #"{"status":"started"}"#)
+                }
+            ],
+            transport: transport
+        )
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.function_call_arguments.done","call_id":"call_123","name":"start_round","arguments":"{\"exerciseId\":\"exercise-2\"}"}"#
+        )
+
+        let handled = try await responder.handle(event)
+        let sent = await transport.sentEvents
+
+        #expect(handled)
+        #expect(sent == [
+            .functionCallOutput(callID: "call_123", output: #"{"status":"started"}"#),
+            .responseCreate()
+        ])
+    }
+
     @Test func pcm16BufferFactoryConvertsLittleEndianSamplesToFloatBuffer() throws {
         var samples: [Int16] = [0, Int16.max]
         let data = Data(bytes: &samples, count: samples.count * MemoryLayout<Int16>.size)
@@ -447,4 +507,20 @@ private final class SpyAudioOutputPlayer: RealtimeAudioOutputPlaying {
     func stop() {
         stopCount += 1
     }
+}
+
+private actor SpyRealtimeTransport: RealtimeTransport {
+    private(set) var sentEvents: [RealtimeClientEvent] = []
+
+    func connect(apiKey: String, configuration: RealtimeSessionConfiguration) async throws {}
+
+    func send(_ event: RealtimeClientEvent) async throws {
+        sentEvents.append(event)
+    }
+
+    func nextEvent() async throws -> RealtimeServerEvent {
+        throw RealtimeTransportError.disconnected
+    }
+
+    func disconnect() async {}
 }

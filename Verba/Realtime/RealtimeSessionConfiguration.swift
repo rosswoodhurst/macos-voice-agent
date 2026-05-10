@@ -5,17 +5,20 @@ struct RealtimeSessionConfiguration: Equatable, Sendable {
     var voice: String
     var inputAudioRate: Int
     var outputAudioRate: Int
+    var tools: [RealtimeToolDefinition]
 
     init(
         instructions: String,
         voice: String = "marin",
         inputAudioRate: Int = 24_000,
-        outputAudioRate: Int = 24_000
+        outputAudioRate: Int = 24_000,
+        tools: [RealtimeToolDefinition] = []
     ) {
         self.instructions = instructions
         self.voice = voice
         self.inputAudioRate = inputAudioRate
         self.outputAudioRate = outputAudioRate
+        self.tools = tools
     }
 
     func sessionUpdateEvent() -> RealtimeClientEvent {
@@ -35,7 +38,8 @@ struct RealtimeSessionConfiguration: Equatable, Sendable {
                         voice: voice
                     )
                 ),
-                instructions: instructions
+                instructions: instructions,
+                tools: tools
             )
         )
     }
@@ -44,6 +48,35 @@ struct RealtimeSessionConfiguration: Equatable, Sendable {
 struct RealtimeClientEvent: Encodable, Equatable, Sendable {
     let type: String
     let session: RealtimeSessionPayload?
+    let item: RealtimeConversationItemPayload?
+    let response: RealtimeResponseCreatePayload?
+
+    init(
+        type: String,
+        session: RealtimeSessionPayload? = nil,
+        item: RealtimeConversationItemPayload? = nil,
+        response: RealtimeResponseCreatePayload? = nil
+    ) {
+        self.type = type
+        self.session = session
+        self.item = item
+        self.response = response
+    }
+
+    static func functionCallOutput(callID: String, output: String) -> RealtimeClientEvent {
+        RealtimeClientEvent(
+            type: "conversation.item.create",
+            item: .init(
+                type: "function_call_output",
+                callID: callID,
+                output: output
+            )
+        )
+    }
+
+    static func responseCreate() -> RealtimeClientEvent {
+        RealtimeClientEvent(type: "response.create", response: .init())
+    }
 }
 
 struct RealtimeSessionPayload: Encodable, Equatable, Sendable {
@@ -52,6 +85,7 @@ struct RealtimeSessionPayload: Encodable, Equatable, Sendable {
     let outputModalities: [String]
     let audio: RealtimeAudioConfiguration
     let instructions: String
+    let tools: [RealtimeToolDefinition]
 
     enum CodingKeys: String, CodingKey {
         case type
@@ -59,8 +93,23 @@ struct RealtimeSessionPayload: Encodable, Equatable, Sendable {
         case outputModalities = "output_modalities"
         case audio
         case instructions
+        case tools
     }
 }
+
+struct RealtimeConversationItemPayload: Encodable, Equatable, Sendable {
+    let type: String
+    let callID: String
+    let output: String
+
+    enum CodingKeys: String, CodingKey {
+        case type
+        case callID = "call_id"
+        case output
+    }
+}
+
+struct RealtimeResponseCreatePayload: Encodable, Equatable, Sendable {}
 
 struct RealtimeAudioConfiguration: Encodable, Equatable, Sendable {
     let input: RealtimeInputAudioConfiguration

@@ -59,6 +59,11 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Implement Realtime transport protocol.
 - [x] Implement WebSocket Realtime transport.
 - [x] Compose and update Realtime session instructions.
+- [x] Add active skill tools to Realtime session configuration.
+- [x] Route Realtime function calls to active skill tool handlers.
+- [ ] Stream microphone input to the Realtime input audio buffer.
+- [ ] Connect the primary UI action to Realtime session lifecycle.
+- [ ] Persist live transcript turns during Realtime sessions.
 - [x] Add SwiftData model types for training sessions, transcripts, and badges.
 - [x] Add SwiftData training store.
 - [x] Add fixed-rubric scoring validation.

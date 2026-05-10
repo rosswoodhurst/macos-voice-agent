@@ -31,6 +31,7 @@
 		B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA320DC063C9286449F36A /* RealtimeTransport.swift */; };
 		B7F91435E4B5595395800EA9 /* DefaultSkillRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CAB3FF4C8258EF3FFB007D /* DefaultSkillRegistry.swift */; };
 		B9F3E7425799ABE0CC308623 /* VoiceOrbState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1337AD9169E08C5DC766E0A /* VoiceOrbState.swift */; };
+		BA4512F1BC67B134C738C3DC /* RealtimeToolCallResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D5FEB28B34E6D95B9D1E54 /* RealtimeToolCallResponder.swift */; };
 		C08EA67854CEDCB756BF00EA /* TrainingBadgeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */; };
 		C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B727E846F9E18D4D48355 /* VerbaApp.swift */; };
 		D6A77685E8872555BC94B384 /* WebSocketRealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */; };
@@ -67,6 +68,7 @@
 		6D09F0315FBB1DC3308BE067 /* RealtimeToolDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeToolDefinition.swift; sourceTree = "<group>"; };
 		76E599EDA44179EACFA5F9C2 /* AudioAmplitudeMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAmplitudeMeter.swift; sourceTree = "<group>"; };
 		7F15108CBAB58BA58B688F88 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		86D5FEB28B34E6D95B9D1E54 /* RealtimeToolCallResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeToolCallResponder.swift; sourceTree = "<group>"; };
 		8A590D3AEEDBDCEF338CD206 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		9571620BD2230693EA816192 /* RealtimeAudioOutputPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeAudioOutputPlayer.swift; sourceTree = "<group>"; };
 		A3E36C8F618E1EC1B504F824 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				CB8C952DDB803AFFA3D98BD7 /* RealtimeInstructionComposer.swift */,
 				B80CFDF07CE4B4C18D5CA496 /* RealtimeSessionConfiguration.swift */,
+				86D5FEB28B34E6D95B9D1E54 /* RealtimeToolCallResponder.swift */,
 				3BBA320DC063C9286449F36A /* RealtimeTransport.swift */,
 				D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */,
 			);
@@ -398,6 +401,7 @@
 				95DCB11459A5C68A876CBAF4 /* RealtimeAudioOutputPlayer.swift in Sources */,
 				2FD9858B1DF650EF6B739579 /* RealtimeInstructionComposer.swift in Sources */,
 				84EBCB30B3882C77BAEC13D3 /* RealtimeSessionConfiguration.swift in Sources */,
+				BA4512F1BC67B134C738C3DC /* RealtimeToolCallResponder.swift in Sources */,
 				8DD2654745DAF0D378032475 /* RealtimeToolDefinition.swift in Sources */,
 				B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */,
 				90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */,
