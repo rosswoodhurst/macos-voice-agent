@@ -85,5 +85,5 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Add app icon set.
 - [x] Add README orb preview asset.
 - [x] Document v1 verification status.
-- [ ] Capture a literal README screenshot once macOS Screen Recording permission is available.
+- [x] Capture a literal README screenshot once macOS Screen Recording permission is available.
 - [ ] Verify v1 definition of done.

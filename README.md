@@ -2,7 +2,7 @@
 
 Karen is a native macOS voice assistant for Ross, a UC Solutions Architect. v1 is focused on one skill: a UC and AI-automation communication training coach that role-plays scenarios, scores performance on a fixed rubric, and tracks progress over time.
 
-![Karen voice orb preview](docs/images/karen-orb-preview.png)
+![Karen voice orb screenshot](docs/images/karen-orb-screenshot.png)
 
 ## Requirements
 
