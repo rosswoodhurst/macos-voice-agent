@@ -98,6 +98,14 @@ struct VerbaTests {
         #expect(decoded == tool)
     }
 
+    @Test func inputAudioBufferAppendEventBase64EncodesPCM() {
+        let data = Data([0x01, 0x02, 0x03])
+        let event = RealtimeClientEvent.inputAudioBufferAppend(audio: data)
+
+        #expect(event.type == "input_audio_buffer.append")
+        #expect(event.audio == data.base64EncodedString())
+    }
+
     @MainActor
     @Test func trainingSkillExposesRequiredTools() {
         let skill = UCCommunicationTrainingSkill()
@@ -386,6 +394,44 @@ struct VerbaTests {
         #expect(channel[1] > 0.99)
     }
 
+    @Test func pcm16AudioConverterConvertsFloatBufferToLittleEndianPCM() throws {
+        let format = try #require(AVAudioFormat(
+            commonFormat: .pcmFormatFloat32,
+            sampleRate: 24_000,
+            channels: 1,
+            interleaved: false
+        ))
+        let buffer = try #require(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 2))
+        buffer.frameLength = 2
+        let channel = try #require(buffer.floatChannelData?[0])
+        channel[0] = 0
+        channel[1] = 1
+
+        let data = PCM16AudioConverter().pcm16Data(from: buffer)
+
+        #expect(data.count == 4)
+        #expect(AudioAmplitudeMeter().normalizedRMSLevel(fromPCM16: data) > 0.70)
+    }
+
+    @MainActor
+    @Test func realtimeMicrophoneStreamerSendsInputAudioAppendEvents() async throws {
+        let data = Data([0x01, 0x02, 0x03])
+        let transport = SpyRealtimeTransport()
+        var inputLevels: [Double] = []
+        let streamer = RealtimeMicrophoneStreamer(
+            capture: FakeMicrophoneCapture(),
+            transport: transport,
+            onInputLevel: { inputLevels.append($0) }
+        )
+
+        try await streamer.handleCapturedAudio(data: data, level: 0.42)
+
+        #expect(inputLevels == [0.42])
+        #expect(await transport.sentEvents == [
+            .inputAudioBufferAppend(audio: data)
+        ])
+    }
+
     @MainActor
     @Test func appStateRoutesRealtimeAudioToPlayerAndAmplitudeMeter() throws {
         var samples: [Int16] = [0, Int16.max, 0, -Int16.max]
@@ -523,4 +569,9 @@ private actor SpyRealtimeTransport: RealtimeTransport {
     }
 
     func disconnect() async {}
+}
+
+private final class FakeMicrophoneCapture: MicrophoneInputCapturing, @unchecked Sendable {
+    func start(onAudioChunk: @escaping @Sendable (Data, Double) -> Void) throws {}
+    func stop() {}
 }

@@ -50,17 +50,20 @@ struct RealtimeClientEvent: Encodable, Equatable, Sendable {
     let session: RealtimeSessionPayload?
     let item: RealtimeConversationItemPayload?
     let response: RealtimeResponseCreatePayload?
+    let audio: String?
 
     init(
         type: String,
         session: RealtimeSessionPayload? = nil,
         item: RealtimeConversationItemPayload? = nil,
-        response: RealtimeResponseCreatePayload? = nil
+        response: RealtimeResponseCreatePayload? = nil,
+        audio: String? = nil
     ) {
         self.type = type
         self.session = session
         self.item = item
         self.response = response
+        self.audio = audio
     }
 
     static func functionCallOutput(callID: String, output: String) -> RealtimeClientEvent {
@@ -76,6 +79,13 @@ struct RealtimeClientEvent: Encodable, Equatable, Sendable {
 
     static func responseCreate() -> RealtimeClientEvent {
         RealtimeClientEvent(type: "response.create", response: .init())
+    }
+
+    static func inputAudioBufferAppend(audio data: Data) -> RealtimeClientEvent {
+        RealtimeClientEvent(
+            type: "input_audio_buffer.append",
+            audio: data.base64EncodedString()
+        )
     }
 }
 
