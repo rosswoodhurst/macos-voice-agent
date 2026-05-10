@@ -328,6 +328,14 @@ struct VerbaTests {
         #expect(event.outputAudioDelta == data)
     }
 
+    @Test func realtimeServerEventParsesServerErrorMessage() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"error","error":{"code":"invalid_request_error","message":"Unknown session field."}}"#
+        )
+
+        #expect(event.serverErrorMessage == "invalid_request_error: Unknown session field.")
+    }
+
     @Test func realtimeServerEventParsesDirectFunctionCallDoneEvent() throws {
         let event = try RealtimeServerEvent(
             jsonString: #"{"type":"response.function_call_arguments.done","call_id":"call_123","name":"record_session","arguments":"{\"exerciseId\":\"exercise-1\"}"}"#
@@ -545,6 +553,18 @@ struct VerbaTests {
         #expect(player.stopCount == 1)
         #expect(appState.voicePhase == .idle)
         #expect(appState.outputLevel == 0)
+    }
+
+    @MainActor
+    @Test func appStateSurfacesRealtimeServerErrors() throws {
+        let appState = AppState(authProvider: StaticAuthProvider(apiKey: "sk-test-1234567890"))
+        let errorEvent = try RealtimeServerEvent(
+            jsonString: #"{"type":"error","error":{"code":"invalid_request_error","message":"Bad Realtime config."}}"#
+        )
+
+        try appState.handleRealtimeServerEvent(errorEvent)
+
+        #expect(appState.settingsError == "invalid_request_error: Bad Realtime config.")
     }
 
     @MainActor

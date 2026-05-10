@@ -98,6 +98,11 @@ final class AppState: ObservableObject {
     }
 
     func handleRealtimeServerEvent(_ event: RealtimeServerEvent) throws {
+        if let serverErrorMessage = event.serverErrorMessage {
+            settingsError = serverErrorMessage
+            return
+        }
+
         if let audioDelta = event.outputAudioDelta {
             try audioOutputPlayer.playPCM16(audioDelta)
             updateOutputLevel(fromPCM16: audioDelta)

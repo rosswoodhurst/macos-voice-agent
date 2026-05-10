@@ -50,6 +50,28 @@ struct RealtimeServerEvent: Equatable, Sendable {
         type == "response.output_audio.done" || type == "response.audio.done" || type == "response.done"
     }
 
+    var serverErrorMessage: String? {
+        guard type == "error",
+              let data = rawJSON.data(using: .utf8),
+              let event = try? JSONDecoder().decode(RealtimeErrorEvent.self, from: data)
+        else {
+            return nil
+        }
+
+        return [
+            event.error.code,
+            event.error.message
+        ]
+            .compactMap { value in
+                guard let value, !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                    return nil
+                }
+
+                return value
+            }
+            .joined(separator: ": ")
+    }
+
     var functionToolCall: RealtimeFunctionToolCall? {
         guard type == "response.function_call_arguments.done",
               let data = rawJSON.data(using: .utf8),
@@ -97,6 +119,15 @@ struct RealtimeServerEvent: Equatable, Sendable {
 
 private struct RealtimeAudioDeltaEvent: Decodable {
     let delta: String
+}
+
+private struct RealtimeErrorEvent: Decodable {
+    let error: RealtimeErrorPayload
+}
+
+private struct RealtimeErrorPayload: Decodable {
+    let code: String?
+    let message: String?
 }
 
 struct RealtimeFunctionToolCall: Equatable, Sendable {

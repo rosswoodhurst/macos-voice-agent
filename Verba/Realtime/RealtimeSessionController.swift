@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 @MainActor
 protocol RealtimeSessionControlling: AnyObject {
@@ -10,6 +11,7 @@ protocol RealtimeSessionControlling: AnyObject {
 
 @MainActor
 final class RealtimeSessionController: RealtimeSessionControlling {
+    private let logger = Logger(subsystem: AppConfig.bundleIdentifier, category: "Realtime")
     private let authProvider: AuthProvider
     private let transport: any RealtimeTransport
     private let activeSkill: any Skill
@@ -106,6 +108,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
         while !Task.isCancelled {
             do {
                 let event = try await transport.nextEvent()
+                logger.debug("Realtime server event: \(event.type, privacy: .public)")
                 if try await toolResponder.handle(event) {
                     continue
                 }
@@ -114,6 +117,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
                 try onServerEvent(event)
             } catch {
                 if !Task.isCancelled {
+                    logger.error("Realtime event loop failed: \(error.localizedDescription, privacy: .public)")
                     onError(error)
                 }
                 return
