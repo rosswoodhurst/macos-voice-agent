@@ -15,6 +15,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
     private let activeSkill: any Skill
     private let instructionComposer: RealtimeInstructionComposer
     private let makeMicrophoneCapture: () throws -> any MicrophoneInputCapturing
+    private let transcriptRecorder: RealtimeTranscriptRecorder
     private let onInputLevel: (Double) -> Void
     private let onServerEvent: (RealtimeServerEvent) throws -> Void
     private let onError: (Error) -> Void
@@ -31,6 +32,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
         makeMicrophoneCapture: @escaping () throws -> any MicrophoneInputCapturing = {
             try MicrophoneInputCapture()
         },
+        transcriptRecorder: RealtimeTranscriptRecorder = RealtimeTranscriptRecorder(),
         onInputLevel: @escaping (Double) -> Void,
         onServerEvent: @escaping (RealtimeServerEvent) throws -> Void,
         onError: @escaping (Error) -> Void = { _ in }
@@ -40,6 +42,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
         self.activeSkill = activeSkill
         self.instructionComposer = instructionComposer
         self.makeMicrophoneCapture = makeMicrophoneCapture
+        self.transcriptRecorder = transcriptRecorder
         self.onInputLevel = onInputLevel
         self.onServerEvent = onServerEvent
         self.onError = onError
@@ -54,9 +57,10 @@ final class RealtimeSessionController: RealtimeSessionControlling {
             throw AuthProviderError.invalidAPIKey
         }
 
+        try transcriptRecorder.start()
         let instructions = instructionComposer.compose(
             activeSkillPromptFragment: activeSkill.systemPromptFragment
-        )
+        ) + "\n\nWhen you call record_session, set transcriptId to \"\(transcriptRecorder.transcriptID.uuidString)\"."
         let configuration = RealtimeSessionConfiguration(
             instructions: instructions,
             tools: activeSkill.tools
@@ -106,6 +110,7 @@ final class RealtimeSessionController: RealtimeSessionControlling {
                     continue
                 }
 
+                try transcriptRecorder.record(event)
                 try onServerEvent(event)
             } catch {
                 if !Task.isCancelled {

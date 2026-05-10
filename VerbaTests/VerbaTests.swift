@@ -356,6 +356,30 @@ struct VerbaTests {
         )
     }
 
+    @Test func realtimeServerEventParsesUserTranscriptEvent() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"conversation.item.input_audio_transcription.completed","transcript":"exercise one"}"#
+        )
+
+        #expect(event.transcriptLine(timestamp: 12) == TranscriptLine(role: .user, text: "exercise one", t: 12))
+    }
+
+    @Test func realtimeServerEventParsesAssistantTranscriptEvent() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.output_audio_transcript.done","transcript":"Which exercise?"}"#
+        )
+
+        #expect(event.transcriptLine(timestamp: 13) == TranscriptLine(role: .assistant, text: "Which exercise?", t: 13))
+    }
+
+    @Test func realtimeServerEventParsesNestedConversationTranscriptEvent() throws {
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"conversation.item.done","item":{"role":"user","content":[{"type":"input_audio","transcript":"surprise me"}]}}"#
+        )
+
+        #expect(event.transcriptLine(timestamp: 14) == TranscriptLine(role: .user, text: "surprise me", t: 14))
+    }
+
     @MainActor
     @Test func realtimeToolCallResponderSendsFunctionOutputAndNextResponse() async throws {
         let transport = SpyRealtimeTransport()
@@ -391,12 +415,15 @@ struct VerbaTests {
         )
         let transport = SpyRealtimeTransport()
         let capture = FakeMicrophoneCapture()
+        let transcriptID = try #require(UUID(uuidString: "11111111-1111-1111-1111-111111111111"))
+        let transcriptRecorder = RealtimeTranscriptRecorder(transcript: Transcript(id: transcriptID))
         var levels: [Double] = []
         let controller = RealtimeSessionController(
             authProvider: StaticAuthProvider(apiKey: "sk-test-1234567890"),
             transport: transport,
             activeSkill: TestSkill(id: "skill", tools: [tool]),
             makeMicrophoneCapture: { capture },
+            transcriptRecorder: transcriptRecorder,
             onInputLevel: { levels.append($0) },
             onServerEvent: { _ in }
         )
@@ -408,12 +435,38 @@ struct VerbaTests {
         #expect(controller.isRunning)
         #expect(capture.startCount == 1)
         #expect(await transport.connectedConfigurations.map(\.tools) == [[tool]])
+        #expect(await transport.connectedConfigurations.first?.instructions.contains(transcriptID.uuidString) == true)
         #expect(levels == [0.25])
 
         await controller.stop()
 
         #expect(capture.stopCount == 1)
         #expect(await transport.disconnectCount == 1)
+    }
+
+    @MainActor
+    @Test func realtimeTranscriptRecorderPersistsTranscriptLines() throws {
+        let container = try ModelContainer(
+            for: TrainingSession.self,
+            Transcript.self,
+            Badge.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let store = TrainingStore(modelContext: container.mainContext)
+        let recorder = RealtimeTranscriptRecorder(trainingStore: store)
+        let event = try RealtimeServerEvent(
+            jsonString: #"{"type":"response.output_text.done","text":"Score: 16 out of 20"}"#
+        )
+
+        try recorder.start()
+        try recorder.record(event, timestamp: 99)
+
+        let transcripts = try container.mainContext.fetch(FetchDescriptor<Transcript>())
+
+        #expect(transcripts.count == 1)
+        #expect(transcripts.first?.lines == [
+            TranscriptLine(role: .assistant, text: "Score: 16 out of 20", t: 99)
+        ])
     }
 
     @Test func pcm16BufferFactoryConvertsLittleEndianSamplesToFloatBuffer() throws {

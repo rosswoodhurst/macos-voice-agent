@@ -37,6 +37,7 @@
 		BA4512F1BC67B134C738C3DC /* RealtimeToolCallResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D5FEB28B34E6D95B9D1E54 /* RealtimeToolCallResponder.swift */; };
 		C08EA67854CEDCB756BF00EA /* TrainingBadgeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D580F6530793A76AF6B58 /* TrainingBadgeEngine.swift */; };
 		C0B702A665ACAFBEDA2E3C21 /* VerbaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B727E846F9E18D4D48355 /* VerbaApp.swift */; };
+		D29E221A75696EFDDE330C3F /* RealtimeTranscriptRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1D96E3E455E36E1E7AA25 /* RealtimeTranscriptRecorder.swift */; };
 		D6A77685E8872555BC94B384 /* WebSocketRealtimeTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */; };
 		DF9613534C6E1AC8B5B2DE6B /* TrainingProgressSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA753963BDBAD89832946A76 /* TrainingProgressSummary.swift */; };
 		DFAC3143F0C833AFCF4119BD /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E36C8F618E1EC1B504F824 /* Badge.swift */; };
@@ -92,6 +93,7 @@
 		D4EF384C25FE12D67E4A3410 /* KeychainAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAuthProvider.swift; sourceTree = "<group>"; };
 		D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketRealtimeTransport.swift; sourceTree = "<group>"; };
 		DA99CE76715CBD2EB9022A5B /* SkillRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRegistry.swift; sourceTree = "<group>"; };
+		DFA1D96E3E455E36E1E7AA25 /* RealtimeTranscriptRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTranscriptRecorder.swift; sourceTree = "<group>"; };
 		E2AD95AECC2F76E52C04E229 /* TrainingToolRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingToolRuntime.swift; sourceTree = "<group>"; };
 		E54B4E945161F444E90F7F83 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		ED7C0237B2D4A567ECEE57D8 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				B80CFDF07CE4B4C18D5CA496 /* RealtimeSessionConfiguration.swift */,
 				94D3CEE8FAA91CE63BCB01C6 /* RealtimeSessionController.swift */,
 				86D5FEB28B34E6D95B9D1E54 /* RealtimeToolCallResponder.swift */,
+				DFA1D96E3E455E36E1E7AA25 /* RealtimeTranscriptRecorder.swift */,
 				3BBA320DC063C9286449F36A /* RealtimeTransport.swift */,
 				D52BC0D5B3BE03D5845D91F6 /* WebSocketRealtimeTransport.swift */,
 			);
@@ -419,6 +422,7 @@
 				A0201460FBD7F1BB6DCA6E00 /* RealtimeSessionController.swift in Sources */,
 				BA4512F1BC67B134C738C3DC /* RealtimeToolCallResponder.swift in Sources */,
 				8DD2654745DAF0D378032475 /* RealtimeToolDefinition.swift in Sources */,
+				D29E221A75696EFDDE330C3F /* RealtimeTranscriptRecorder.swift in Sources */,
 				B2E0DCD13621D8FA45C702C9 /* RealtimeTransport.swift in Sources */,
 				90DCA0877F778F24E2E6AEB4 /* SettingsView.swift in Sources */,
 				44BE1ED1CF802ACBBC186785 /* Skill.swift in Sources */,

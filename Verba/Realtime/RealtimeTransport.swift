@@ -67,6 +67,32 @@ struct RealtimeServerEvent: Equatable, Sendable {
             argumentsJSON: argumentsJSON
         )
     }
+
+    func transcriptLine(timestamp: TimeInterval = Date().timeIntervalSince1970) -> TranscriptLine? {
+        guard let data = rawJSON.data(using: .utf8),
+              let event = try? JSONDecoder().decode(RealtimeTranscriptEvent.self, from: data)
+        else {
+            return nil
+        }
+
+        if type == "conversation.item.input_audio_transcription.completed",
+           let text = event.transcriptText {
+            return TranscriptLine(role: .user, text: text, t: timestamp)
+        }
+
+        if type == "response.output_audio_transcript.done" || type == "response.output_text.done",
+           let text = event.transcriptText {
+            return TranscriptLine(role: .assistant, text: text, t: timestamp)
+        }
+
+        if type == "conversation.item.done" || type == "conversation.item.retrieved",
+           let role = event.item?.transcriptRole,
+           let text = event.item?.transcriptText {
+            return TranscriptLine(role: role, text: text, t: timestamp)
+        }
+
+        return nil
+    }
 }
 
 private struct RealtimeAudioDeltaEvent: Decodable {
@@ -116,5 +142,62 @@ private struct RealtimeFunctionToolCallItem: Decodable {
         case callID = "call_id"
         case name
         case arguments
+    }
+}
+
+private struct RealtimeTranscriptEvent: Decodable {
+    let transcript: String?
+    let text: String?
+    let item: RealtimeTranscriptItem?
+
+    var transcriptText: String? {
+        nonEmpty(transcript) ?? nonEmpty(text)
+    }
+
+    private func nonEmpty(_ value: String?) -> String? {
+        guard let value, !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return nil
+        }
+
+        return value
+    }
+}
+
+private struct RealtimeTranscriptItem: Decodable {
+    let role: String?
+    let content: [RealtimeTranscriptContent]?
+
+    var transcriptRole: TranscriptRole? {
+        switch role {
+        case "user":
+            .user
+        case "assistant":
+            .assistant
+        case "tool":
+            .tool
+        default:
+            nil
+        }
+    }
+
+    var transcriptText: String? {
+        content?.compactMap(\.transcriptText).first
+    }
+}
+
+private struct RealtimeTranscriptContent: Decodable {
+    let transcript: String?
+    let text: String?
+
+    var transcriptText: String? {
+        nonEmpty(transcript) ?? nonEmpty(text)
+    }
+
+    private func nonEmpty(_ value: String?) -> String? {
+        guard let value, !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return nil
+        }
+
+        return value
     }
 }

@@ -118,6 +118,7 @@ final class AppState: ObservableObject {
         return RealtimeSessionController(
             authProvider: authProvider,
             activeSkill: skill,
+            transcriptRecorder: RealtimeTranscriptRecorder(trainingStore: trainingStore),
             onInputLevel: { [weak self] level in
                 self?.inputLevel = level
                 self?.voicePhase = .listening

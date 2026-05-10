@@ -24,6 +24,10 @@ final class TrainingStore: @unchecked Sendable {
         try modelContext.save()
     }
 
+    func save() throws {
+        try modelContext.save()
+    }
+
     func recentSessions(limit: Int) throws -> [TrainingSession] {
         var descriptor = FetchDescriptor<TrainingSession>(
             sortBy: [SortDescriptor(\.startedAt, order: .reverse)]
