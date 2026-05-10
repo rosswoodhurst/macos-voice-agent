@@ -82,28 +82,30 @@ private struct VoiceOrbView: View {
     let outputLevel: Double
 
     @State private var isBreathing = false
+    @State private var ringRotation = 0.0
 
     var body: some View {
-        TimelineView(.animation) { timeline in
-            ZStack {
-                if phase == .thinking {
-                    Circle()
-                        .trim(from: 0.08, to: 0.32)
-                        .stroke(.white.opacity(0.82), lineWidth: 2)
-                        .rotationEffect(.degrees(timeline.date.timeIntervalSinceReferenceDate * 52))
-                        .frame(width: 286, height: 286)
-                }
-
+        ZStack {
+            if phase == .thinking {
                 Circle()
-                    .fill(fillColor)
-                    .scaleEffect(scale)
+                    .trim(from: 0.08, to: 0.32)
+                    .stroke(.white.opacity(0.82), lineWidth: 2)
+                    .rotationEffect(.degrees(ringRotation))
+                    .frame(width: 286, height: 286)
             }
+
+            Circle()
+                .fill(fillColor)
+                .scaleEffect(scale)
         }
         .animation(.easeInOut(duration: 0.22), value: phase)
         .animation(.easeInOut(duration: 0.22), value: inputLevel)
         .animation(.easeInOut(duration: 0.12), value: outputLevel)
+        .animation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true), value: isBreathing)
+        .animation(.linear(duration: 2.8).repeatForever(autoreverses: false), value: ringRotation)
         .onAppear {
             isBreathing = true
+            ringRotation = 360
         }
     }
 
