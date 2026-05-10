@@ -32,18 +32,26 @@ struct SettingsView: View {
             }
 
             HStack {
-                Button("clear", action: appState.clearAPIKey)
-                    .buttonStyle(.plain)
-                    .font(.caption)
-                    .foregroundStyle(.white.opacity(0.7))
+                Button(action: {
+                    appState.clearAPIKey()
+                }) {
+                    Text("clear")
+                }
+                .buttonStyle(.plain)
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.7))
 
                 Spacer()
 
-                Button("save", action: save)
-                    .buttonStyle(.plain)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.white)
+                Button(action: {
+                    save()
+                }) {
+                    Text("save")
+                }
+                .buttonStyle(.plain)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundStyle(.white)
             }
         }
         .padding(28)

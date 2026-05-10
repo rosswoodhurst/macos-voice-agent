@@ -80,6 +80,7 @@ Add HealthKit-driven workout and diet coaching after the iOS port lands. Health 
 - [x] Sync speaking animation to output audio amplitude.
 - [x] Wire Realtime model audio playback into the output amplitude meter.
 - [x] Fix live primary-action crash during Realtime verification.
+- [x] Fix settings button crash during API-key entry.
 - [x] Surface Realtime server errors during live audio verification.
 - [x] Set the visible macOS window and bundle display name to Karen.
 - [x] Build the Progress dashboard.
